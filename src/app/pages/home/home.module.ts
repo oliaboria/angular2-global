@@ -8,12 +8,10 @@ import { routes } from './home.routes';
 
 // custom components
 import { HomeComponent } from './home.component';
-import { TodoItemComponent } from './todo-item/todo-item.component';
 
 @NgModule({
 	declarations: [
-		HomeComponent,
-		TodoItemComponent
+		HomeComponent
 	],
 	imports: [
 		routes,

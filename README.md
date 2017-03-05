@@ -1,5 +1,6 @@
+# Angular2 Global 
 
-# Angular2 Global
+
 
 ### Quick start
 **Make sure you have Node version >= 5.0 and NPM >= 3**
@@ -22,6 +23,7 @@ npm start
 # use Hot Module Replacement
 npm run server:dev:hmr
 
+```
 go to [http://0.0.0.0:3000](http://0.0.0.0:3000) or [http://localhost:3000](http://localhost:3000) in your browser
 
 # Table of Contents
@@ -172,6 +174,15 @@ npm run build:docker
 # Configuration
 Configuration files live in `config/` we are currently using webpack, karma, and protractor for different stages of your application
 
+# AoT Don'ts
+The following are some things that will make AoT compile fail.
+
+- Don’t use require statements for your templates or styles, use styleUrls and templateUrls, the angular2-template-loader plugin will change it to require at build time.
+- Don’t use default exports.
+- Don’t use `form.controls.controlName`, use `form.get(‘controlName’)`
+- Don’t use `control.errors?.someError`, use `control.hasError(‘someError’)`
+- Don’t use functions in your providers, routes or declarations, export a function and then reference that function name
+- @Inputs, @Outputs, View or Content Child(ren), Hostbindings, and any field you use from the template or annotate for Angular should be public
 
 # External Stylesheets
 Any stylesheets (Sass or CSS) placed in the `src/styles` directory and imported into your project will automatically be compiled into an external `.css` and embedded in your production builds.
@@ -238,4 +249,3 @@ If you're importing a module that uses Node.js modules which are CommonJS you ne
 ```typescript
 import * as _ from 'lodash';
 ```
-

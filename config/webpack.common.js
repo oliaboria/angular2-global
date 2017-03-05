@@ -27,7 +27,7 @@ const ngcWebpack = require('ngc-webpack');
 const HMR = helpers.hasProcessFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-  title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass',
+  title: 'Angular2 global',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };
@@ -41,21 +41,6 @@ module.exports = function (options) {
   isProd = options.env === 'production';
   return {
 
-    /*
-     * Cache generated modules and chunks to improve performance for multiple incremental builds.
-     * This is enabled by default in watch mode.
-     * You can pass false to disable it.
-     *
-     * See: http://webpack.github.io/docs/configuration.html#cache
-     */
-    //cache: false,
-
-    /*
-     * The entry point for the bundle
-     * Our Angular.js app
-     *
-     * See: http://webpack.github.io/docs/configuration.html#entry
-     */
     entry: {
 
       'polyfills': './src/polyfills.browser.ts',
@@ -64,18 +49,7 @@ module.exports = function (options) {
 
     },
 
-    /*
-     * Options affecting the resolving of modules.
-     *
-     * See: http://webpack.github.io/docs/configuration.html#resolve
-     */
     resolve: {
-
-      /*
-       * An array of extensions that should be used to resolve modules.
-       *
-       * See: http://webpack.github.io/docs/configuration.html#resolve-extensions
-       */
       extensions: ['.ts', '.js', '.json'],
 
       // An array of directory names to be resolved to the current directory
@@ -83,11 +57,7 @@ module.exports = function (options) {
 
     },
 
-    /*
-     * Options affecting the normal modules.
-     *
-     * See: http://webpack.github.io/docs/configuration.html#module
-     */
+
     module: {
 
       rules: [

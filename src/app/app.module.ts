@@ -21,15 +21,12 @@ import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 // App is our top level component
 import { AppComponent } from './app.component';
-import { NoContentComponent } from './pages/no-content';
 
 // Components
 import { HeaderModule, FooterModule } from './common/components';
 
 // Pages
 import { HomeModule } from './pages/home';
-import { PageOneModule } from  './pages/page-one';
-import { PageTwoModule } from  './pages/page-two';
 
 // Services
 
@@ -46,8 +43,7 @@ const APP_PROVIDERS = [
 @NgModule({
 	bootstrap: [AppComponent],
 	declarations: [
-		AppComponent,
-		NoContentComponent
+		AppComponent
 	],
 	imports: [ // import Angular's modules
 		BrowserModule,
@@ -56,9 +52,7 @@ const APP_PROVIDERS = [
 		RouterModule.forRoot(ROUTES, {useHash: true, preloadingStrategy: PreloadAllModules}),
 		HeaderModule,
 		FooterModule,
-		HomeModule,
-		PageOneModule,
-		PageTwoModule
+		HomeModule
 	],
 	providers: [ // expose our Services and Providers into Angular's dependency injection
 		ENV_PROVIDERS,

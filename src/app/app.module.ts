@@ -30,11 +30,8 @@ import { HomeModule } from './pages/home';
 
 // Services
 
-import { TodoService } from './common/services';
-
 // Application wide providers
 const APP_PROVIDERS = [
-	TodoService
 ];
 
 /**

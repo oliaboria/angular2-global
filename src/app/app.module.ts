@@ -24,7 +24,7 @@ import { AppComponent } from './app.component';
 import { NoContentComponent } from './pages/no-content';
 
 // Components
-import { HeaderModule, FooterModule } from './core/components';
+import { HeaderModule, FooterModule } from './common/components';
 
 // Pages
 import { HomeModule } from './pages/home';
@@ -33,7 +33,7 @@ import { PageTwoModule } from  './pages/page-two';
 
 // Services
 
-import { TodoService } from './core/services';
+import { TodoService } from './common/services';
 
 // Application wide providers
 const APP_PROVIDERS = [

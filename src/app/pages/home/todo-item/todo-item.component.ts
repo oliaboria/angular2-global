@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, Input } from '@angular/core';
-import { TodoItem } from '../../../core/entities';
-import { todoStatusClasses } from '../../../core/enums';
+import { TodoItem } from '../../../common/entities';
+import { todoStatusClasses } from '../../../common/enums';
 
 @Component({
 	selector: 'todo-item',

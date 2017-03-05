@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { TodoService } from '../../core/services';
-import { TodoItem } from '../../core/entities';
+import { TodoService } from '../../common/services';
+import { TodoItem } from '../../common/entities';
 
 @Component({
 	selector: 'home',

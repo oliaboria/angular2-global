@@ -1,18 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {
-	NgModule,
-	ApplicationRef
-} from '@angular/core';
-import {
-	removeNgStyles,
-	createNewHosts,
-} from '@angularclass/hmr';
-import {
-	RouterModule,
-	PreloadAllModules
-} from '@angular/router';
+import { NgModule, ApplicationRef } from '@angular/core';
+import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
+import { RouterModule, PreloadAllModules } from '@angular/router';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -58,8 +49,7 @@ const APP_PROVIDERS = [
 })
 export class AppModule {
 
-	constructor(public appRef: ApplicationRef) {
-	}
+	constructor(public appRef: ApplicationRef) {}
 
 	public hmrOnInit(store: any) {
 		if (!store || !store.state) { return; }

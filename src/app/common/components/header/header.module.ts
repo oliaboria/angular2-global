@@ -1,6 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
-import { HeaderComponent } from './header.component';
 import { RouterModule } from '@angular/router';
+
+import { HeaderComponent } from './header.component';
 
 @NgModule({
 	declarations: [HeaderComponent],
@@ -8,6 +9,6 @@ import { RouterModule } from '@angular/router';
 	exports: [HeaderComponent]
 })
 export class HeaderModule {
-	constructor() {
-	}
+
+	constructor() {}
 }

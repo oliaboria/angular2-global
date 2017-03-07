@@ -1,4 +1,5 @@
 ﻿import { NgModule } from '@angular/core';
+
 import { FooterComponent } from './footer.component';
 
 @NgModule({
@@ -7,6 +8,7 @@ import { FooterComponent } from './footer.component';
 	exports: [FooterComponent]
 })
 export class FooterModule {
-	constructor() {
-	}
+
+	constructor() {}
+
 }

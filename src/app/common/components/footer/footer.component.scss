@@ -6,4 +6,10 @@
 	left: 0;
 	right: 0;
 	height: 50px;
+	background-color: $main-bg-color;
+
+	.copyright {
+		text-align: center;
+		line-height: 50px;
+	}
 }

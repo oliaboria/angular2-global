@@ -2,11 +2,11 @@ import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({
-	selector: 'home',
+	selector: 'courses',
 	encapsulation: ViewEncapsulation.None,
 	providers: [],
-	styleUrls: ['./home.styles.scss'],
-	templateUrl: './home.template.html'
+	styleUrls: ['./courses.styles.scss'],
+	templateUrl: './courses.template.html'
 })
-export class HomeComponent {
+export class CoursesComponent {
 }

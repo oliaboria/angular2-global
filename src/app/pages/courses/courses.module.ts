@@ -4,23 +4,22 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 // routes
-import { routes } from './home.routes';
+import { routes } from './courses.routes';
 
 // custom components
-import { HomeComponent } from './home.component';
+import { CoursesComponent } from './courses.component';
 
 @NgModule({
 	declarations: [
-		HomeComponent
+		CoursesComponent
 	],
 	imports: [
-		routes,
 		FormsModule,
 		ReactiveFormsModule,
 		CommonModule
 	],
 	providers: []
 })
-export class HomeModule {
+export class CoursesModule {
 	constructor() {}
 }

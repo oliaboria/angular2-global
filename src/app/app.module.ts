@@ -20,7 +20,7 @@ import { AppComponent } from './app.component';
 import { HeaderModule, FooterModule } from './common/components';
 
 // Pages
-import { HomeModule } from './pages/home';
+import { CoursesModule } from './pages/courses';
 
 // Services
 
@@ -44,7 +44,7 @@ const APP_PROVIDERS = [
 		RouterModule.forRoot(ROUTES, {useHash: true, preloadingStrategy: PreloadAllModules}),
 		HeaderModule,
 		FooterModule,
-		HomeModule
+		CoursesModule
 	],
 	providers: [ // expose our Services and Providers into Angular's dependency injection
 		ENV_PROVIDERS,

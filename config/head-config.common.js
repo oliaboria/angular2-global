@@ -18,6 +18,9 @@ module.exports = {
     /** <link> tags for favicons **/
     { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/assets/icon/favicon.png' },
 
+	/** <link> tags for a fonts **/
+    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
+
     /** <link> tags for a Web App Manifest **/
     { rel: 'manifest', href: '/assets/manifest.json' }
   ],

@@ -1,6 +1,9 @@
+import 'hammerjs';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { MaterialModule } from '@angular/material';
 import { NgModule, ApplicationRef } from '@angular/core';
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { RouterModule, PreloadAllModules } from '@angular/router';
@@ -37,6 +40,7 @@ const APP_PROVIDERS = [
 		BrowserModule,
 		FormsModule,
 		HttpModule,
+		MaterialModule,
 		RouterModule.forRoot(ROUTES, {useHash: true, preloadingStrategy: PreloadAllModules}),
 		HeaderModule,
 		FooterModule,

@@ -1,0 +1,14 @@
+@import "../../../styles/variables/colors.scss";
+
+.breadcrumb {
+	background-color: $header-bg;
+	margin-bottom: 0;
+	padding-left: 0;
+
+	&-item {
+		&.active {
+			background-color: $header-bg;
+			color: $active-a;
+		}
+	}
+}

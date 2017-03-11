@@ -8,7 +8,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 	encapsulation: ViewEncapsulation.None
 })
 export class FooterComponent {
-	year: number;
+	public year: number;
 
 	constructor () {
 		this.year = new Date().getFullYear();

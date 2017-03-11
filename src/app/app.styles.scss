@@ -1,4 +1,29 @@
+@import "./styles/variables/colors.scss";
+
 html, body {
   height: 100%;
-  font-family: Arial, Helvetica, sans-serif
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: $text-color;
+}
+
+button:focus {
+	outline: none!important;
+}
+
+a {
+	color: $text-color!important;
+
+	&:hover, &:focus {
+		color: $text-color;
+	}
+
+	&:focus {
+		text-decoration: none;
+	}
+
+	&:hover {
+		text-decoration: underline;
+	}
 }

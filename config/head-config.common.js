@@ -20,6 +20,7 @@ module.exports = {
 
 	/** <link> tags for a fonts **/
     { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
+	{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Condensed' },
 
     /** <link> tags for a Web App Manifest **/
     { rel: 'manifest', href: '/assets/manifest.json' }

@@ -10,7 +10,7 @@ import { AppState } from './app.service';
 		'./styles/index.scss',
 		'./app.styles.scss'
 	],
-	template: require('./app.template.html')
+	templateUrl: './app.template.html'
 })
 export class AppComponent implements OnInit {
 

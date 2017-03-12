@@ -5,11 +5,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { routes } from './courses.routes';
 
+import { CourseComponent } from './course/course.component';
 import { CoursesComponent } from './courses.component';
 import { FindCourseComponent } from './find-course';
 
 @NgModule({
 	declarations: [
+		CourseComponent,
 		CoursesComponent,
 		FindCourseComponent
 	],

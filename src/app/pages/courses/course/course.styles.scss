@@ -1,0 +1,16 @@
+@import "../../../styles/variables/colors.scss";
+
+.course-item {
+	.mat-card {
+		color: $text-color;
+	}
+
+	&-description {
+		color: $black-text;
+		margin: 1rem 0;
+	}
+
+	&-buttons button{
+		margin-bottom: 1rem;
+	}
+}

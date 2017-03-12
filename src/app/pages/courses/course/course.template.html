@@ -1,0 +1,19 @@
+<div class="course-item">
+	<md-card>
+		<div class="row">
+			<div class="col-md-10">
+				<div class="row align-items-center">
+					<h4 class="col-md-5 course-item-title">{{item.title}}</h4>
+					<div class="col-md-2 course-item-duration">{{item.duration}}</div>
+					<div class="col-md-5 course-item-date">{{item.createDate | date:'medium'}}</div>
+				</div>
+
+				<div class="course-item-description">{{item.description}}</div>
+			</div>
+			<div class="col-md-2 course-item-buttons">
+				<button md-raised-button>Edit course</button>
+				<button md-raised-button color="warn" (click)="delete()">Delete course</button>
+			</div>
+		</div>
+	</md-card>
+</div>

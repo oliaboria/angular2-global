@@ -23,9 +23,11 @@ import { HeaderModule, FooterModule } from './common/components';
 import { CoursesModule } from './pages/courses';
 
 // Services
+import { CoursesService } from './common/services';
 
 // Application wide providers
 const APP_PROVIDERS = [
+	CoursesService
 ];
 
 /**

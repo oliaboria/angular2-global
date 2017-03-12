@@ -3,7 +3,14 @@
 		<find-course class="col-md-10"></find-course>
 
 		<div class="col-md-2">
-			<button md-raised-button class="add-course">Add course</button>
+			<button md-raised-button class="add-course">
+				Add course</button>
 		</div>
 	</div>
+
+	<ul class="courses-list">
+		<li *ngFor="let course of items">
+			<course [item]="course" (deleteCourse)="onDelete($event)"></course>
+		</li>
+	</ul>
 </div>

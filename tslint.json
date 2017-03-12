@@ -27,6 +27,12 @@
 		"import-destructuring-spacing": true,
 		"invoke-injectable": true,
 		"member-access": false,
+		"member-ordering": [
+			true,
+			"public-before-private",
+			"static-before-instance",
+			"variables-before-functions"
+		],
 		"no-access-missing-member": true,
 		"no-attribute-parameter-decorator": true,
 		"no-forward-ref": true,

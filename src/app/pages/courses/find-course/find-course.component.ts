@@ -16,7 +16,7 @@ export class FindCourseComponent {
 	}
 
 	findCourse () {
-		console.log('Course to find', this.query);
+		console.log('Course to find:', this.query);
 	}
 
 }

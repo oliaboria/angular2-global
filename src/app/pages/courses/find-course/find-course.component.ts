@@ -9,5 +9,14 @@ import { Subscription } from 'rxjs';
 	templateUrl: './find-course.template.html'
 })
 export class FindCourseComponent {
-	constructor () {}
+	query: string;
+
+	constructor () {
+		this.query = '';
+	}
+
+	findCourse () {
+		console.log('Course to find', this.query);
+	}
+
 }

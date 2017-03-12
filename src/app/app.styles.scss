@@ -31,3 +31,13 @@ a {
 		text-decoration: underline;
 	}
 }
+
+main {
+	min-height: 100%;
+
+	&:after {
+		height: 50px;
+		content: '';
+		display: block;
+	}
+}

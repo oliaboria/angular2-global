@@ -11,11 +11,11 @@ import { Subscription } from 'rxjs';
 export class FindCourseComponent {
 	query: string;
 
-	constructor () {
+	constructor() {
 		this.query = '';
 	}
 
-	findCourse () {
+	findCourse(): void {
 		console.log('Course to find:', this.query);
 	}
 

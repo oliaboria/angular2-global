@@ -1,0 +1,14 @@
+@import "../../../styles/variables/colors.scss";
+
+.breadcrumb {
+	background-color: $main-bg-color;
+	margin-bottom: 0;
+	padding-left: 0;
+
+	&-item {
+		&.active {
+			background-color: $main-bg-color;
+			color: $orange-text;
+		}
+	}
+}

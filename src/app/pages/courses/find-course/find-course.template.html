@@ -1,0 +1,13 @@
+<form class="find-course" name="find-course-form">
+	<md-input-container class="input-container">
+		<input placeholder="name fragment or date"
+			   [(ngModel)]="query"
+			   type="text"
+			   name="query"
+			   mdInput>
+	</md-input-container>
+
+	<button md-raised-button color="accent"
+			(click)="findCourse()">
+			Find</button>
+</form>

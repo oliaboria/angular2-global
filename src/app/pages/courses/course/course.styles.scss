@@ -1,0 +1,31 @@
+@import "../../../styles/variables/colors.scss";
+
+.course-item {
+	.mat-card {
+		color: $text-color;
+	}
+
+	&-description {
+		color: $black-text;
+		margin: 1rem 0;
+	}
+
+	&-buttons {
+		button {
+			margin-bottom: 1rem;
+		}
+
+		@media (min-width: 768px) {
+			position: relative;
+
+			.btn-container {
+				position: absolute;
+				right: 0;
+			}
+
+			button {
+				display: block;
+			}
+		}
+	}
+}

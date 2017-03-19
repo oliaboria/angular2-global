@@ -1,0 +1,14 @@
+@import "../../../styles/variables/colors.scss";
+
+.find-course {
+	width: 100%;
+
+	.input-container {
+		width: 50%;
+	}
+
+	button {
+		margin-left: 1rem;
+		color: $accent-btn-text!important;
+	}
+}

@@ -1,6 +1,9 @@
+import 'hammerjs';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { MaterialModule } from '@angular/material';
 import { NgModule, ApplicationRef } from '@angular/core';
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { RouterModule, PreloadAllModules } from '@angular/router';
@@ -17,12 +20,14 @@ import { AppComponent } from './app.component';
 import { HeaderModule, FooterModule } from './common/components';
 
 // Pages
-import { HomeModule } from './pages/home';
+import { CoursesModule } from './pages/courses';
 
 // Services
+import { CoursesService } from './common/services';
 
 // Application wide providers
 const APP_PROVIDERS = [
+	CoursesService
 ];
 
 /**
@@ -37,10 +42,11 @@ const APP_PROVIDERS = [
 		BrowserModule,
 		FormsModule,
 		HttpModule,
+		MaterialModule,
 		RouterModule.forRoot(ROUTES, {useHash: true, preloadingStrategy: PreloadAllModules}),
 		HeaderModule,
 		FooterModule,
-		HomeModule
+		CoursesModule
 	],
 	providers: [ // expose our Services and Providers into Angular's dependency injection
 		ENV_PROVIDERS,

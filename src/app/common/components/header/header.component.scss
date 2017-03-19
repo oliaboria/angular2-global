@@ -1,49 +1,30 @@
 @import "../../../styles/variables/colors.scss";
 
-.main-navbar {
-	height: 60px;
-	background-color: $c-primary;
-	color: $white;
+header {
+	margin-bottom: 2rem;
+	background-color: $main-bg-color;
+	box-shadow: 0 3px 3px -3px rgba(0,0,0,.2),
+				0 4px 7px 0 rgba(0,0,0,.14),
+				0 1px 18px 0 rgba(0,0,0,.12);
+
+	.row {
+		padding: .2rem 0;
+	}
 }
 
 .logo {
-	float: left;
-	padding-top: 10px;
-}
-
-.logo-title {
-	line-height: 1;
-	font-size: 1.6rem;
-}
-
-.logo-sub-title {
-	font-size: 0.7rem;
-}
-
-.menu {
-	float: right;
-	font-size: 0.8rem;
-	padding-top: 20px;
-
-	.menu-item {
-		text-transform: uppercase;
-		border-left: solid 1px $white;
-		border-right: solid 1px $white;
-		padding: 0 15px;
+	a {
 		display: inline-block;
-		position: relative;
-		cursor: pointer;
+	}
+}
 
-		&:first-child {
-			border: none;
-		}
+.user-profile {
+	padding-top: .4rem;
+	padding-bottom: .4rem;
 
-		&:last-child {
-			border: none;
-		}
-
-		&.active {
-			background-color: darken($c-primary, 10%);
-		}
+	.user-name {
+		display: inline-block;
+		color: $text-color;
+		margin-right: 1rem;
 	}
 }

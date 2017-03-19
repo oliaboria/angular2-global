@@ -1,11 +1,16 @@
 @import "../../../styles/variables/colors.scss";
 
 .main-footer {
-	background-color: $c-primary;
-	color: $white;
 	position: fixed;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	height: 50px;
+	background-color: $main-bg-color;
+	margin-top: -50px;
+
+	.copyright {
+		text-align: center;
+		line-height: 50px;
+	}
 }

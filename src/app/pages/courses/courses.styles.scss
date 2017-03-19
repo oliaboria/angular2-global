@@ -1,0 +1,15 @@
+﻿@import "../../styles/variables/colors.scss";
+
+.courses-page {
+	.add-course {
+		width: 100%;
+	}
+
+	.courses-list {
+		list-style: none;
+
+		li {
+			margin-top: 2rem;
+		}
+	}
+}

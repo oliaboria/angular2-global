@@ -11,8 +11,10 @@
 				<div class="course-item-description">{{item.description}}</div>
 			</div>
 			<div class="col-md-2 course-item-buttons">
-				<button md-raised-button>Edit course</button>
-				<button md-raised-button color="warn" (click)="delete()">Delete course</button>
+				<div class="btn-container">
+					<button md-raised-button>Edit course</button>
+					<button md-raised-button color="warn" (click)="delete()">Delete course</button>
+				</div>
 			</div>
 		</div>
 	</md-card>

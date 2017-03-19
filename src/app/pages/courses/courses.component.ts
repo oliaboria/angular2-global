@@ -15,14 +15,10 @@ export class CoursesComponent implements OnInit {
 	items: Course[];
 
 	constructor(private coursesService: CoursesService) {
-		console.log('constructor');
-
 		this.items = [];
 	}
 
 	ngOnInit(): void {
-		console.log('ngOnInit');
-
 		this.items = this.coursesService.getCourses();
 	}
 

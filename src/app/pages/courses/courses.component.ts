@@ -23,6 +23,6 @@ export class CoursesComponent implements OnInit {
 	}
 
 	onDelete(id: number): void {
-		console.log('Course id', id);
+		this.coursesService.removeCourse(id);
 	}
 }

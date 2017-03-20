@@ -27,8 +27,11 @@ export class CoursesService {
 		return this.courses;
 	}
 
-	createCourse(title: string, date: Date, duration: string, description: string): void {
-		this.courses.push(new CourseItem(title, date, duration, description));
+	createCourse(title: string, date: Date, duration: string, description: string): Course {
+		let newCourse = new CourseItem(title, date, duration, description);
+
+		this.courses.push(newCourse);
+		return newCourse;
 	}
 
 	getCourseById(id: number): Course {
@@ -36,10 +39,40 @@ export class CoursesService {
 
 		this.courses.forEach((item: Course) => {
 			if (item.id === id) {
-				course =  item;
+				course = item;
 			}
 		});
 
 		return course;
+	}
+
+	updateCourse(id: number, updateFields: {title?: string,
+											createDate?: Date,
+											duration?: string,
+											description?: string}): Course {
+		let updatedCourse = this.getCourseById(id);
+
+		Object.assign(updatedCourse, updateFields);
+		return updatedCourse;
+	}
+
+	removeCourse(id: number): Course {
+		let removedIndex = this.getCourseIndex(id);
+
+		if (removedIndex > -1) {
+			this.courses.splice(removedIndex, 1);
+		}
+
+		return this.courses[removedIndex];
+	}
+
+	private getCourseIndex(id: number): number {
+		for (let i = 0; i < this.courses.length; i++) {
+			if (this.courses[i].id === id) {
+				return i;
+			}
+		}
+
+		return -1;
 	}
 }

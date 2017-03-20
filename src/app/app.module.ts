@@ -12,7 +12,7 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
  * Platform and Environment providers/directives/pipes
  */
 import { ENV_PROVIDERS } from './environment';
-import { ROUTES } from './app.routes';
+// import { ROUTES } from './app.routes';
 // App is our top level component
 import { AppComponent } from './app.component';
 
@@ -21,12 +21,15 @@ import { HeaderModule, FooterModule } from './common/components';
 
 // Pages
 import { CoursesModule } from './pages/courses';
+import { LoginModule } from './pages/login';
 
 // Services
+import { AuthService } from './common/services';
 import { CoursesService } from './common/services';
 
 // Application wide providers
 const APP_PROVIDERS = [
+	AuthService,
 	CoursesService
 ];
 
@@ -42,11 +45,11 @@ const APP_PROVIDERS = [
 		BrowserModule,
 		FormsModule,
 		HttpModule,
-		MaterialModule,
-		RouterModule.forRoot(ROUTES, {useHash: true, preloadingStrategy: PreloadAllModules}),
+		MaterialModule.forRoot(),
 		HeaderModule,
 		FooterModule,
-		CoursesModule
+		CoursesModule,
+		LoginModule
 	],
 	providers: [ // expose our Services and Providers into Angular's dependency injection
 		ENV_PROVIDERS,

@@ -23,11 +23,23 @@ export class CoursesService {
 		this.createCourse('Video Course 4', new Date(), '1h 10min', description);
 	}
 
+	getCourses(): Course[] {
+		return this.courses;
+	}
+
 	createCourse(title: string, date: Date, duration: string, description: string): void {
 		this.courses.push(new CourseItem(title, date, duration, description));
 	}
 
-	getCourses(): Course[] {
-		return this.courses;
+	getCourseById(id: number): Course {
+		let course: Course;
+
+		this.courses.forEach((item: Course) => {
+			if (item.id === id) {
+				course =  item;
+			}
+		});
+
+		return course;
 	}
 }

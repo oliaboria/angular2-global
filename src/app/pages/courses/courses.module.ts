@@ -5,12 +5,15 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { routes } from './courses.routes';
 
+import { ConfirmationModalComponent } from './course/confirmation-modal';
 import { CourseComponent } from './course/course.component';
 import { CoursesComponent } from './courses.component';
 import { FindCourseComponent } from './find-course';
 
 @NgModule({
+	entryComponents: [ConfirmationModalComponent],
 	declarations: [
+		ConfirmationModalComponent,
 		CourseComponent,
 		CoursesComponent,
 		FindCourseComponent

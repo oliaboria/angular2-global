@@ -1,6 +1,10 @@
 ﻿@import "../../styles/variables/colors.scss";
 
 .courses-page {
+	.toolbox {
+		margin-bottom: 1rem;
+	}
+
 	.add-course {
 		width: 100%;
 	}
@@ -11,5 +15,9 @@
 		li {
 			margin-top: 2rem;
 		}
+	}
+
+	.no-courses {
+		font-size: 2rem;
 	}
 }

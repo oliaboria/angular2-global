@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, ViewEncapsulation, Output } from '@angular/core';
+import { MdDialog, MdDialogRef } from '@angular/material';
 import { Subscription } from 'rxjs';
 
+import { ConfirmationModalComponent } from './confirmation-modal';
 import { Course } from '../../../common/interfaces';
 
 @Component({
@@ -15,7 +17,17 @@ export class CourseComponent {
 
 	@Output() deleteCourse: EventEmitter<number> = new EventEmitter();
 
+	constructor(public dialog: MdDialog) {}
+
 	delete(): void {
-		this.deleteCourse.emit(this.item.id);
+		let dialogRef = this.dialog.open(ConfirmationModalComponent);
+
+		dialogRef.componentInstance.title = this.item.title;
+
+		dialogRef.afterClosed().subscribe((result: string) => {
+			if (result === 'Yes') {
+				this.deleteCourse.emit(this.item.id);
+			}
+		});
 	}
 }

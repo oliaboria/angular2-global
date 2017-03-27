@@ -1,5 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
+import { AuthService } from '../../services';
+
 @Component({
 	selector: 'main-header',
 	templateUrl: 'header.component.html',
@@ -9,5 +11,5 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class HeaderComponent {
 
-	constructor() {}
+	constructor(public authService: AuthService) {}
 }

@@ -61,10 +61,7 @@
 			true,
 			100
 		],
-		"indent": [
-			true,
-			"tabs"
-		],
+		"indent": true,
 		"no-string-literal": false,
 		"no-use-before-declare": true,
 		"object-literal-sort-keys": false,

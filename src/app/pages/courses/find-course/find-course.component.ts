@@ -1,4 +1,8 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { Component,
+		 ChangeDetectionStrategy,
+		 OnInit,
+		 OnDestroy,
+		 ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -6,7 +10,8 @@ import { Subscription } from 'rxjs';
 	encapsulation: ViewEncapsulation.None,
 	providers: [],
 	styleUrls: ['./find-course.styles.scss'],
-	templateUrl: './find-course.template.html'
+	templateUrl: './find-course.template.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FindCourseComponent {
 	query: string;

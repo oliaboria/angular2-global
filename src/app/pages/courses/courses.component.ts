@@ -1,4 +1,8 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { Component,
+		 ChangeDetectionStrategy,
+		 OnInit,
+		 OnDestroy,
+		 ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { Course } from '../../common/interfaces';
@@ -9,7 +13,8 @@ import { CoursesService } from '../../common/services';
 	encapsulation: ViewEncapsulation.None,
 	providers: [],
 	styleUrls: ['./courses.styles.scss'],
-	templateUrl: './courses.template.html'
+	templateUrl: './courses.template.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoursesComponent implements OnInit {
 	items: Course[];

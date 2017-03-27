@@ -1,25 +1,31 @@
 import { Injectable  } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 import { User } from '../interfaces';
 
 @Injectable()
 export class AuthService {
+	private userInfo: Subject<User> = new Subject<User>();
+	private authenticated: Subject<boolean> = new Subject<boolean>();
 
 	login(user: User): void {
-		localStorage.setItem('username', user.username);
-		localStorage.setItem('token', user.token);
+		this.userInfo.next(user);
+		this.authenticated.next(true);
+		localStorage.setItem('userInfo', JSON.stringify(user));
 	}
 
 	logout(): void {
-		localStorage.removeItem('username');
-		localStorage.removeItem('token');
+		this.userInfo.next({});
+		this.authenticated.next(false);
+		localStorage.removeItem('userInfo');
 	}
 
-	isAuthenticated(): boolean {
-		return !!localStorage.getItem('token');
+	isAuthenticated(): Observable<boolean> {
+		return this.authenticated.asObservable();
 	}
 
-	getUserInfo(): string {
-		return localStorage.getItem('username');
+	getUserInfo(): Observable<User> {
+		return this.userInfo.asObservable();
 	}
 }

@@ -6,11 +6,11 @@
 			</a>
 		</div>
 
-		<div class="col-md-7" *ngIf="authService.isAuthenticated()">
+		<div class="col-md-7" *ngIf="isAuthenticated">
 			<breadcrumbs></breadcrumbs>
 		</div>
-		<div class="col-md-2 user-profile" *ngIf="authService.isAuthenticated()">
-			<span class="user-name">{{authService.getUserInfo()}}</span>
+		<div class="col-md-2 user-profile" *ngIf="isAuthenticated">
+			<span class="user-name">{{userName}}</span>
 			<a md-raised-button [routerLink]="'login'" class="logout" (click)="authService.logout()">Logout</a>
 		</div>
 

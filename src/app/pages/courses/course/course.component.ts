@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Input, ViewEncapsulation, Output } from '@angular/core';
+import { Component,
+		 ChangeDetectionStrategy,
+		 EventEmitter,
+		 Input,
+		 ViewEncapsulation,
+		 Output } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { Subscription } from 'rxjs';
 
@@ -10,7 +15,8 @@ import { Course } from '../../../common/interfaces';
 	encapsulation: ViewEncapsulation.None,
 	providers: [],
 	styleUrls: ['./course.styles.scss'],
-	templateUrl: './course.template.html'
+	templateUrl: './course.template.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseComponent {
 	@Input() item: Course;

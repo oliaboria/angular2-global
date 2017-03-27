@@ -1,4 +1,8 @@
-import { Component, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
+import { Component,
+		 ChangeDetectionStrategy,
+		 OnInit,
+		 OnDestroy,
+		 ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../common/services';
@@ -9,15 +13,16 @@ import { User } from '../../common/interfaces';
 	encapsulation: ViewEncapsulation.None,
 	providers: [],
 	styleUrls: ['./login.styles.scss'],
-	templateUrl: './login.template.html'
+	templateUrl: './login.template.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
 	model: User;
 
 	constructor(private router: Router, public authService: AuthService) {
 		this.model = {
-			username: '',
-			token: ''
+			name: '',
+			password: ''
 		};
 	}
 

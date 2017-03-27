@@ -22,6 +22,8 @@ export class CourseComponent {
 	delete(): void {
 		let dialogRef = this.dialog.open(ConfirmationModalComponent);
 
+		dialogRef.componentInstance.title = this.item.title;
+
 		dialogRef.afterClosed().subscribe((result: string) => {
 			if (result === 'Yes') {
 				this.deleteCourse.emit(this.item.id);

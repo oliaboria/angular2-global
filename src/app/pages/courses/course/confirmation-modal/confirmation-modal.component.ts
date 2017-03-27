@@ -7,5 +7,7 @@ import { MdDialogRef } from '@angular/material';
 	styleUrls: ['./confirmation-modal.styles.scss'],
 })
 export class ConfirmationModalComponent {
+	title: string;
+
 	constructor(public dialogRef: MdDialogRef<ConfirmationModalComponent>) {}
 }

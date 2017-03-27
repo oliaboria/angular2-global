@@ -24,7 +24,9 @@ export class CoursesComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.items = this.coursesService.getCourses();
+		this.coursesService.getCourses().subscribe((items: Course[]) => {
+			this.items = items;
+		});
 	}
 
 	onDelete(id: number): void {

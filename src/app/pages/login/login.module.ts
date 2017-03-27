@@ -3,7 +3,7 @@ import { MaterialModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { routes } from './courses.routes';
+import { routes } from './login.routes';
 
 import { LoginComponent } from './login.component';
 
@@ -15,6 +15,7 @@ import { LoginComponent } from './login.component';
 		LoginComponent
 	],
 	imports: [
+		routes,
 		FormsModule,
 		ReactiveFormsModule,
 		CommonModule,

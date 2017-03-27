@@ -12,7 +12,7 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
  * Platform and Environment providers/directives/pipes
  */
 import { ENV_PROVIDERS } from './environment';
-// import { ROUTES } from './app.routes';
+import { ROUTES } from './app.routes';
 // App is our top level component
 import { AppComponent } from './app.component';
 
@@ -46,6 +46,7 @@ const APP_PROVIDERS = [
 		FormsModule,
 		HttpModule,
 		MaterialModule.forRoot(),
+		RouterModule.forRoot(ROUTES, {useHash: true, preloadingStrategy: PreloadAllModules}),
 		HeaderModule,
 		FooterModule,
 		CoursesModule,

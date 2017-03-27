@@ -19,6 +19,7 @@ import { FindCourseComponent } from './find-course';
 		FindCourseComponent
 	],
 	imports: [
+		routes,
 		FormsModule,
 		ReactiveFormsModule,
 		CommonModule,

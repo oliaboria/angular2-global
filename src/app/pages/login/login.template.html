@@ -1,5 +1,5 @@
 <div class="login-page">
-	<form name="loginForm" class="login-form" (submit)="authService.login(model)">
+	<form name="loginForm" class="login-form" (submit)="login(model)">
 		<md-input-container>
 			<input mdInput [(ngModel)]="model.username" placeholder="Login" type="text" name="username" required>
 		</md-input-container>

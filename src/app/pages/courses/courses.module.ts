@@ -9,6 +9,7 @@ import { ConfirmationModalComponent } from './course/confirmation-modal';
 import { CourseComponent } from './course/course.component';
 import { CoursesComponent } from './courses.component';
 import { FindCourseComponent } from './find-course';
+import { LoaderBlockComponent } from '../../common/components/loader-block';
 
 @NgModule({
 	entryComponents: [ConfirmationModalComponent],
@@ -16,7 +17,8 @@ import { FindCourseComponent } from './find-course';
 		ConfirmationModalComponent,
 		CourseComponent,
 		CoursesComponent,
-		FindCourseComponent
+		FindCourseComponent,
+		LoaderBlockComponent
 	],
 	imports: [
 		routes,

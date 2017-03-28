@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 
 import { ConfirmationModalComponent } from './confirmation-modal';
 import { Course } from '../../../common/interfaces';
+import { LoaderBlockService } from '../../../common/components/loader-block';
 
 @Component({
 	selector: 'course',
@@ -23,7 +24,7 @@ export class CourseComponent {
 
 	@Output() deleteCourse: EventEmitter<number> = new EventEmitter();
 
-	constructor(public dialog: MdDialog) {}
+	constructor(public dialog: MdDialog, private loaderBlockService: LoaderBlockService) {}
 
 	delete(): void {
 		let dialogRef = this.dialog.open(ConfirmationModalComponent);
@@ -32,6 +33,7 @@ export class CourseComponent {
 
 		dialogRef.afterClosed().subscribe((result: string) => {
 			if (result === 'Yes') {
+				this.loaderBlockService.display();
 				this.deleteCourse.emit(this.item.id);
 			}
 		});

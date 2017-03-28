@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 
 import { Course } from '../../common/interfaces';
 import { CoursesService } from '../../common/services';
+import { LoaderBlockService } from '../../common/components/loader-block';
 
 @Component({
 	selector: 'courses',
@@ -19,7 +20,7 @@ import { CoursesService } from '../../common/services';
 export class CoursesComponent implements OnInit {
 	items: Course[];
 
-	constructor(private coursesService: CoursesService) {
+	constructor(private coursesService: CoursesService, private loaderBlockService: LoaderBlockService) {
 		this.items = [];
 	}
 
@@ -30,6 +31,10 @@ export class CoursesComponent implements OnInit {
 	}
 
 	onDelete(id: number): void {
-		this.coursesService.removeCourse(id);
+		this.coursesService.removeCourse(id).subscribe(() => {
+			setTimeout(() => {
+					this.loaderBlockService.hide();
+			}, 1000);
+		});
 	}
 }

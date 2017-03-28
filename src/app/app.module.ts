@@ -26,11 +26,13 @@ import { LoginModule } from './pages/login';
 // Services
 import { AuthService } from './common/services';
 import { CoursesService } from './common/services';
+import { LoaderBlockService } from './common/components/loader-block';
 
 // Application wide providers
 const APP_PROVIDERS = [
 	AuthService,
-	CoursesService
+	CoursesService,
+	LoaderBlockService
 ];
 
 /**

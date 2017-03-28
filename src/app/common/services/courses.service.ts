@@ -57,14 +57,14 @@ export class CoursesService {
 		return updatedCourse;
 	}
 
-	removeCourse(id: number): Course {
+	removeCourse(id: number): Observable<Course[]> {
 		let removedIndex = this.getCourseIndex(id);
 
 		if (removedIndex > -1) {
 			this.courses.getValue().splice(removedIndex, 1);
 		}
 
-		return this.courses[removedIndex];
+		return this.courses.asObservable();
 	}
 
 	private getCourseIndex(id: number): number {

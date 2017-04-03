@@ -6,12 +6,14 @@ export class CourseItem implements Course {
 	createDate: Date;
 	duration: string;
 	description: string;
+	topRated: boolean;
 
-	constructor(title: string, createDate: Date, duration: string, description: string) {
+	constructor(title: string, createDate: Date, duration: string, description: string, topRated: boolean) {
 		this.title = title;
 		this.createDate = createDate;
 		this.duration = duration;
 		this.description = description;
+		this.topRated = topRated;
 		this.id = this.generateId();
 	}
 

@@ -19,10 +19,10 @@ export class CoursesService {
 					'Class aptent taciti sociosqu ad litora torquent per ' +
 					'conubia nostra, per inceptos himenaeos.';
 
-		this.createCourse('Video Course 1', new Date(), '1h 28min', description);
-		this.createCourse('Video Course 2', new Date(), '2h 15min', description);
-		this.createCourse('Video Course 3', new Date(), '45min', description);
-		this.createCourse('Video Course 4', new Date(), '1h 10min', description);
+		this.createCourse('Video Course 1', new Date(2017, 1, 1), '1h 28min', description);
+		this.createCourse('Video Course 2', new Date(2017, 3, 1), '2h 15min', description);
+		this.createCourse('Video Course 3', new Date(2017, 4, 1), '45min', description);
+		this.createCourse('Video Course 4', new Date(2017, 11, 1), '1h 10min', description);
 	}
 
 	getCourses(): Observable<Course[]> {

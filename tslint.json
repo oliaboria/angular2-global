@@ -67,6 +67,7 @@
 		"no-use-before-declare": true,
 		"object-literal-sort-keys": false,
 		"ordered-imports": false,
+		"one-variable-per-declaration": false,
 		"quotemark": [
 			true,
 			"single",

@@ -11,10 +11,13 @@ import { CoursesComponent } from './courses.component';
 import { FindCourseComponent } from './find-course';
 import { LoaderBlockComponent } from '../../common/components/loader-block';
 
+import { ColorByDateDirective } from './course/color-by-date.directive';
+
 @NgModule({
 	entryComponents: [ConfirmationModalComponent],
 	declarations: [
 		ConfirmationModalComponent,
+		ColorByDateDirective,
 		CourseComponent,
 		CoursesComponent,
 		FindCourseComponent

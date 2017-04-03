@@ -14,6 +14,7 @@ import { LoaderBlockComponent } from '../../common/components/loader-block';
 import { ColorByDateDirective } from './course/color-by-date.directive';
 
 import { MyDurationPipe } from './course/durarion.pipe';
+import { OrderByPipe } from './order-by.pipe';
 
 @NgModule({
 	entryComponents: [ConfirmationModalComponent],
@@ -21,6 +22,7 @@ import { MyDurationPipe } from './course/durarion.pipe';
 		ConfirmationModalComponent,
 		ColorByDateDirective,
 		MyDurationPipe,
+		OrderByPipe,
 		CourseComponent,
 		CoursesComponent,
 		FindCourseComponent

@@ -19,8 +19,8 @@ export class CoursesService {
 					'Class aptent taciti sociosqu ad litora torquent per ' +
 					'conubia nostra, per inceptos himenaeos.';
 
-		this.createCourse('Video Course 1', new Date(2017, 1, 1), 225, description, true);
-		this.createCourse('Video Course 2', new Date(2017, 3, 1), 30, description, false);
+		this.createCourse('Video Course 1', new Date(2017, 3, 1), 30, description, false);
+		this.createCourse('Video Course 2', new Date(2017, 1, 1), 225, description, true);
 		this.createCourse('Video Course 3', new Date(2017, 4, 1), 120, description, true);
 		this.createCourse('Video Course 4', new Date(2017, 11, 1), 15, description, false);
 	}

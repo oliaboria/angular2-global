@@ -34,7 +34,7 @@ export class CoursesComponent implements OnInit {
 		this.coursesService.removeCourse(id).subscribe(() => {
 			setTimeout(() => {
 					this.loaderBlockService.hide();
-			}, 1000);
+			}, 10000000);
 		});
 	}
 }

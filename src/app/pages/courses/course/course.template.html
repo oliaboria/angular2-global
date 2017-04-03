@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-md-10">
 				<div class="row align-items-center">
-					<h4 class="col-md-5 course-item-title">{{item.title}}</h4>
+					<h4 class="col-md-5 course-item-title">{{item.title | uppercase}}</h4>
 					<div class="col-md-2 course-item-duration">
 						<span>{{item.duration}}</span>
 						<i class="material-icons star" [ngClass]="{'rated': item.topRated}">star</i>

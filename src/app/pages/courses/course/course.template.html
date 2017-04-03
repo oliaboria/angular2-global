@@ -5,7 +5,7 @@
 				<div class="row align-items-center">
 					<h4 class="col-md-5 course-item-title">{{item.title | uppercase}}</h4>
 					<div class="col-md-2 course-item-duration">
-						<span>{{item.duration}}</span>
+						<span>{{item.duration | myDuration: 'h min'}}</span>
 						<i class="material-icons star" [ngClass]="{'rated': item.topRated}">star</i>
 					</div>
 					<div class="col-md-5 course-item-date">{{item.createDate | date:'medium'}}</div>

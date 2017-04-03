@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
 
 // Components
 import { HeaderModule, FooterModule } from './common/components';
+import { LoaderBlockComponent } from './common/components/loader-block';
 
 // Pages
 import { CoursesModule } from './pages/courses';
@@ -41,7 +42,8 @@ const APP_PROVIDERS = [
 @NgModule({
 	bootstrap: [AppComponent],
 	declarations: [
-		AppComponent
+		AppComponent,
+		LoaderBlockComponent
 	],
 	imports: [ // import Angular's modules
 		BrowserModule,

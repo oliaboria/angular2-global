@@ -17,8 +17,7 @@ import { LoaderBlockComponent } from '../../common/components/loader-block';
 		ConfirmationModalComponent,
 		CourseComponent,
 		CoursesComponent,
-		FindCourseComponent,
-		LoaderBlockComponent
+		FindCourseComponent
 	],
 	imports: [
 		routes,

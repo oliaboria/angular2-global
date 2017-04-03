@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../common/services';
 import { User } from '../../common/interfaces';
+import { LoaderBlockService } from '../../common/components/loader-block';
 
 @Component({
 	selector: 'login-page',
@@ -19,7 +20,8 @@ import { User } from '../../common/interfaces';
 export class LoginComponent {
 	model: User;
 
-	constructor(private router: Router, public authService: AuthService) {
+	constructor(private router: Router, private loaderBlockService: LoaderBlockService,
+				public  authService: AuthService) {
 		this.model = {
 			name: '',
 			password: ''
@@ -27,7 +29,12 @@ export class LoginComponent {
 	}
 
 	login(model: User): void {
-		this.authService.login(model);
-		this.router.navigate(['/']);
+		this.loaderBlockService.display();
+
+		setTimeout(() => {
+			this.loaderBlockService.hide();
+			this.authService.login(model);
+			this.router.navigate(['/']);
+		}, 1000);
 	}
 }

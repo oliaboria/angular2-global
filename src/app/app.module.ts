@@ -12,12 +12,13 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
  * Platform and Environment providers/directives/pipes
  */
 import { ENV_PROVIDERS } from './environment';
-// import { ROUTES } from './app.routes';
+import { ROUTES } from './app.routes';
 // App is our top level component
 import { AppComponent } from './app.component';
 
 // Components
 import { HeaderModule, FooterModule } from './common/components';
+import { LoaderBlockComponent } from './common/components/loader-block';
 
 // Pages
 import { CoursesModule } from './pages/courses';
@@ -26,11 +27,13 @@ import { LoginModule } from './pages/login';
 // Services
 import { AuthService } from './common/services';
 import { CoursesService } from './common/services';
+import { LoaderBlockService } from './common/components/loader-block';
 
 // Application wide providers
 const APP_PROVIDERS = [
 	AuthService,
-	CoursesService
+	CoursesService,
+	LoaderBlockService
 ];
 
 /**
@@ -39,13 +42,15 @@ const APP_PROVIDERS = [
 @NgModule({
 	bootstrap: [AppComponent],
 	declarations: [
-		AppComponent
+		AppComponent,
+		LoaderBlockComponent
 	],
 	imports: [ // import Angular's modules
 		BrowserModule,
 		FormsModule,
 		HttpModule,
 		MaterialModule.forRoot(),
+		RouterModule.forRoot(ROUTES, {useHash: true, preloadingStrategy: PreloadAllModules}),
 		HeaderModule,
 		FooterModule,
 		CoursesModule,

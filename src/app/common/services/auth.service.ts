@@ -1,25 +1,33 @@
 import { Injectable  } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 import { User } from '../interfaces';
 
 @Injectable()
 export class AuthService {
+	private userInfo: BehaviorSubject<User> = new BehaviorSubject(<User> {});
 
 	login(user: User): void {
-		localStorage.setItem('username', user.username);
-		localStorage.setItem('token', user.token);
+		this.userInfo.next(user);
+		localStorage.setItem('userInfo', JSON.stringify(user));
 	}
 
 	logout(): void {
-		localStorage.removeItem('username');
-		localStorage.removeItem('token');
+		this.userInfo.next({});
+		localStorage.removeItem('userInfo');
 	}
 
 	isAuthenticated(): boolean {
-		return !!localStorage.getItem('token');
+		return !!this.userInfo.getValue().password;
 	}
 
-	getUserInfo(): string {
-		return localStorage.getItem('username');
+	getUserInfo(): Observable<User> {
+		if (!this.isAuthenticated()) {
+			this.userInfo.next(JSON.parse(localStorage.getItem('userInfo')));
+		}
+
+		return this.userInfo.asObservable();
 	}
 }

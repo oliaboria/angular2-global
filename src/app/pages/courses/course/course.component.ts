@@ -1,23 +1,30 @@
-import { Component, EventEmitter, Input, ViewEncapsulation, Output } from '@angular/core';
+import { Component,
+		 ChangeDetectionStrategy,
+		 EventEmitter,
+		 Input,
+		 ViewEncapsulation,
+		 Output } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { Subscription } from 'rxjs';
 
 import { ConfirmationModalComponent } from './confirmation-modal';
 import { Course } from '../../../common/interfaces';
+import { LoaderBlockService } from '../../../common/components/loader-block';
 
 @Component({
 	selector: 'course',
 	encapsulation: ViewEncapsulation.None,
 	providers: [],
 	styleUrls: ['./course.styles.scss'],
-	templateUrl: './course.template.html'
+	templateUrl: './course.template.html',
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseComponent {
 	@Input() item: Course;
 
 	@Output() deleteCourse: EventEmitter<number> = new EventEmitter();
 
-	constructor(public dialog: MdDialog) {}
+	constructor(public dialog: MdDialog, private loaderBlockService: LoaderBlockService) {}
 
 	delete(): void {
 		let dialogRef = this.dialog.open(ConfirmationModalComponent);
@@ -26,6 +33,7 @@ export class CourseComponent {
 
 		dialogRef.afterClosed().subscribe((result: string) => {
 			if (result === 'Yes') {
+				this.loaderBlockService.display();
 				this.deleteCourse.emit(this.item.id);
 			}
 		});

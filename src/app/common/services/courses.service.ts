@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Course } from '../interfaces';
 import { CourseItem } from '../helper-classes';
 
 @Injectable()
 export class CoursesService {
-	private courses: Course[] = [];
+	private courses: BehaviorSubject<Course[]> = new BehaviorSubject([]);
 
 	constructor() {
 		// This will be removed later. Add course is not implemented for now.
@@ -23,25 +25,24 @@ export class CoursesService {
 		this.createCourse('Video Course 4', new Date(), '1h 10min', description);
 	}
 
-	getCourses(): Course[] {
-		return this.courses;
+	getCourses(): Observable<Course[]> {
+		return this.courses.asObservable();
 	}
 
 	createCourse(title: string, date: Date, duration: string, description: string): Course {
 		let newCourse = new CourseItem(title, date, duration, description);
+		let courses = this.courses.getValue();
 
-		this.courses.push(newCourse);
+		courses.push(newCourse);
+		this.courses.next(courses);
 		return newCourse;
 	}
 
 	getCourseById(id: number): Course {
-		let course: Course;
-
-		this.courses.forEach((item: Course) => {
-			if (item.id === id) {
-				course = item;
-			}
-		});
+		let course = this.courses.getValue()
+ 		 	.find((item: Course) => {
+				return item.id === id;
+			});
 
 		return course;
 	}
@@ -56,23 +57,19 @@ export class CoursesService {
 		return updatedCourse;
 	}
 
-	removeCourse(id: number): Course {
+	removeCourse(id: number): Observable<Course[]> {
 		let removedIndex = this.getCourseIndex(id);
 
 		if (removedIndex > -1) {
-			this.courses.splice(removedIndex, 1);
+			this.courses.getValue().splice(removedIndex, 1);
 		}
 
-		return this.courses[removedIndex];
+		return this.courses.asObservable();
 	}
 
 	private getCourseIndex(id: number): number {
-		for (let i = 0; i < this.courses.length; i++) {
-			if (this.courses[i].id === id) {
-				return i;
-			}
-		}
+		let course: Course = this.getCourseById(id);
 
-		return -1;
+		return this.courses.getValue().indexOf(course);
 	}
 }

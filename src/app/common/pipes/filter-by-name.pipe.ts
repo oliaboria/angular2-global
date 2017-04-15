@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { Course } from '../interfaces';
 
-@Pipe({name: 'myFilerByName'})
+@Pipe({name: 'filerByName'})
 export class FilerByNamePipe implements PipeTransform {
 	transform(array: Course[], name: string): Course[] {
 		return _.filter(array, (item: Course) => {

@@ -5,7 +5,7 @@
 				<div class="row align-items-center">
 					<h4 class="col-md-5 course-item-title">{{item.title | uppercase}}</h4>
 					<div class="col-md-2 course-item-duration">
-						<span>{{item.duration | myDuration: 'h min'}}</span>
+						<span>{{item.duration | duration: 'h min'}}</span>
 						<span [ngSwitch]="item.topRated">
 							<i class="material-icons star" *ngSwitchCase="true">star</i>
 							<i class="material-icons star" *ngSwitchCase="false">star_border</i>

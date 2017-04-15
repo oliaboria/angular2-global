@@ -13,7 +13,7 @@ import { FindCourseComponent } from './find-course';
 import { LoaderBlockComponent } from '../../common/components/loader-block';
 import { ColorByDateDirective } from '../../common/directives/color-by-date.directive';
 
-import { MyDurationPipe } from '../../common/pipes/durarion.pipe';
+import { DurationPipe } from '../../common/pipes/durarion.pipe';
 import { OrderByPipe } from '../../common/pipes/order-by.pipe';
 import { FilerByNamePipe } from '../../common/pipes/filter-by-name.pipe';
 
@@ -23,7 +23,7 @@ import { FilerByNamePipe } from '../../common/pipes/filter-by-name.pipe';
 		ConfirmationModalComponent,
 		ColorByDateDirective,
 		FilerByNamePipe,
-		MyDurationPipe,
+		DurationPipe,
 		OrderByPipe,
 		CourseComponent,
 		CoursesComponent,

@@ -22,6 +22,7 @@ import { LoaderBlockComponent } from './common/components/loader-block';
 
 // Pages
 import { CoursesModule } from './pages/courses';
+import { CourseDetailsModule } from './pages/course-details';
 import { LoginModule } from './pages/login';
 
 // Services
@@ -54,6 +55,7 @@ const APP_PROVIDERS = [
 		HeaderModule,
 		FooterModule,
 		CoursesModule,
+		CourseDetailsModule,
 		LoginModule
 	],
 	providers: [ // expose our Services and Providers into Angular's dependency injection

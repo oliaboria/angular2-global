@@ -28,9 +28,11 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.coursesSub.push(
-			this.coursesService.getCourses().subscribe((items: Course[]) => {
-				this.items = items;
-		}));
+			this.coursesService.getCourses()
+				.subscribe((items: Course[]) => {
+					this.items = items;
+				})
+		);
 	}
 
 	ngOnDestroy(): void {

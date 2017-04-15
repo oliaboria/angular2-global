@@ -19,23 +19,22 @@ export class CoursesService {
 					'Class aptent taciti sociosqu ad litora torquent per ' +
 					'conubia nostra, per inceptos himenaeos.';
 
-		this.createCourse('Video Course 1', new Date(2017, 3, 1), 30, description, false);
-		this.createCourse('Video Course 2', new Date(2017, 1, 1), 225, description, true);
-		this.createCourse('Video Course 3', new Date(2017, 4, 1), 120, description, true);
-		this.createCourse('Video Course 4', new Date(2017, 11, 1), 15, description, false);
+		this.createCourse(new CourseItem('Video Course 1', new Date(2017, 3, 1), 30, description, false));
+		this.createCourse(new CourseItem('Video Course 2', new Date(2017, 1, 1), 225, description, true));
+		this.createCourse(new CourseItem('Video Course 3', new Date(2017, 4, 1), 120, description, true));
+		this.createCourse(new CourseItem('Video Course 4', new Date(2017, 11, 1), 15, description, false));
 	}
 
 	getCourses(): Observable<Course[]> {
 		return this.courses.asObservable();
 	}
 
-	createCourse(title: string, date: Date, duration: number, description: string, topRated: boolean): Course {
-		let newCourse = new CourseItem(title, date, duration, description, topRated);
+	createCourse(course: Course): Course {
 		let courses = this.courses.getValue();
 
-		courses.push(newCourse);
+		courses.push(course);
 		this.courses.next(courses);
-		return newCourse;
+		return course;
 	}
 
 	getCourseById(id: number): Course {

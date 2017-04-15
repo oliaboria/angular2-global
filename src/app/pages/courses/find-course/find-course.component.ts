@@ -8,7 +8,7 @@ import { Component,
 
 import { Course } from '../../../common/interfaces';
 
-import { FilerByNamePipe } from './filter-by-name.pipe';
+import { FilerByNamePipe } from '../../../common/pipes/filter-by-name.pipe';
 
 @Component({
 	selector: 'find-course',

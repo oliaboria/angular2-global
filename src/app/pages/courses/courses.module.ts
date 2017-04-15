@@ -9,13 +9,13 @@ import { ConfirmationModalComponent } from './course/confirmation-modal';
 import { CourseComponent } from './course/course.component';
 import { CoursesComponent } from './courses.component';
 import { FindCourseComponent } from './find-course';
+
 import { LoaderBlockComponent } from '../../common/components/loader-block';
+import { ColorByDateDirective } from '../../common/directives/color-by-date.directive';
 
-import { ColorByDateDirective } from './course/color-by-date.directive';
-
-import { MyDurationPipe } from './course/durarion.pipe';
-import { OrderByPipe } from './order-by.pipe';
-import { FilerByNamePipe } from './find-course/filter-by-name.pipe';
+import { MyDurationPipe } from '../../common/pipes/durarion.pipe';
+import { OrderByPipe } from '../../common/pipes/order-by.pipe';
+import { FilerByNamePipe } from '../../common/pipes/filter-by-name.pipe';
 
 @NgModule({
 	entryComponents: [ConfirmationModalComponent],

@@ -1,7 +1,9 @@
 import { Component,
 		 ChangeDetectionStrategy,
 		 ChangeDetectorRef,
+		 EventEmitter,
 		 Input,
+		 Output,
 		 OnInit,
 		 OnDestroy,
 		 ViewEncapsulation } from '@angular/core';
@@ -20,6 +22,7 @@ import { FilerByNamePipe } from '../../../common/pipes/filter-by-name.pipe';
 })
 export class FindCourseComponent {
 	@Input() courses: Course[];
+	@Output() coursesChange = new EventEmitter();
 
 	query: string;
 
@@ -28,8 +31,10 @@ export class FindCourseComponent {
 	}
 
 	findCourse(): void {
-		console.log('Course to find:', this.query);
 		let filteredArr = this.filterPipe.transform(this.courses, this.query);
-		this.courses = filteredArr;
+
+		if (filteredArr.length) {
+			this.coursesChange.emit(filteredArr);
+		}
 	}
 }

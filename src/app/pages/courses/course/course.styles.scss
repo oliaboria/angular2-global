@@ -3,6 +3,14 @@
 .course-item {
 	.mat-card {
 		color: $text-color;
+
+		&.fresh {
+			border: 1px solid $fresh-course;
+		}
+
+		&.upcoming {
+			border: 1px solid $upcoming-course;
+		}
 	}
 
 	&-description {
@@ -27,5 +35,12 @@
 				display: block;
 			}
 		}
+	}
+
+	.star {
+		cursor: pointer;
+		position: relative;
+		top: 2px;
+		color: $orange-text;
 	}
 }

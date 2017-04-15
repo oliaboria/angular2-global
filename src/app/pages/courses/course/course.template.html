@@ -1,10 +1,16 @@
 <div class="course-item">
-	<md-card>
+	<md-card [colorByDate]="item.createDate">
 		<div class="row">
 			<div class="col-md-10">
 				<div class="row align-items-center">
-					<h4 class="col-md-5 course-item-title">{{item.title}}</h4>
-					<div class="col-md-2 course-item-duration">{{item.duration}}</div>
+					<h4 class="col-md-5 course-item-title">{{item.title | uppercase}}</h4>
+					<div class="col-md-2 course-item-duration">
+						<span>{{item.duration | duration: 'h min'}}</span>
+						<span [ngSwitch]="item.topRated">
+							<i class="material-icons star" *ngSwitchCase="true">star</i>
+							<i class="material-icons star" *ngSwitchCase="false">star_border</i>
+						</span>
+					</div>
 					<div class="col-md-5 course-item-date">{{item.createDate | date:'medium'}}</div>
 				</div>
 

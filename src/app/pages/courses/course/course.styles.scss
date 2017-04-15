@@ -41,9 +41,6 @@
 		cursor: pointer;
 		position: relative;
 		top: 2px;
-
-		&.rated {
-			color: $orange-text;
-		}
+		color: $orange-text;
 	}
 }

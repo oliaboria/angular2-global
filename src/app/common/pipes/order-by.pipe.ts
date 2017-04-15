@@ -5,7 +5,7 @@ import { Course } from '../interfaces';
 
 @Pipe({name: 'orderBy'})
 export class OrderByPipe implements PipeTransform {
-	transform(array: Course[], field?: string): Course[] {
-		return _.sortBy(array, [field]);
+	transform(array: Course[], fields: string[], order: string[]): Course[] {
+		return _.orderBy(array, fields, order);
 	}
 }

@@ -9,7 +9,7 @@
 	</div>
 
 	<ul class="courses-list" *ngIf="items.length">
-		<li *ngFor="let course of items | orderBy: 'createDate'">
+		<li *ngFor="let course of items | orderBy : ['createDate'] : ['asc']">
 			<course [item]="course" (deleteCourse)="onDelete($event)"></course>
 		</li>
 	</ul>

@@ -13,18 +13,13 @@ import { FindCourseComponent } from './find-course';
 import { LoaderBlockComponent } from '../../common/components/loader-block';
 import { ColorByDateDirective } from '../../common/directives/color-by-date.directive';
 
-import { DurationPipe } from '../../common/pipes/durarion.pipe';
-import { OrderByPipe } from '../../common/pipes/order-by.pipe';
-import { FilerByNamePipe } from '../../common/pipes/filter-by-name.pipe';
+import { PipeModule } from '../../common/pipes';
 
 @NgModule({
 	entryComponents: [ConfirmationModalComponent],
 	declarations: [
 		ConfirmationModalComponent,
 		ColorByDateDirective,
-		FilerByNamePipe,
-		DurationPipe,
-		OrderByPipe,
 		CourseComponent,
 		CoursesComponent,
 		FindCourseComponent
@@ -34,7 +29,8 @@ import { FilerByNamePipe } from '../../common/pipes/filter-by-name.pipe';
 		FormsModule,
 		ReactiveFormsModule,
 		CommonModule,
-		MaterialModule
+		MaterialModule,
+		PipeModule
 	],
 	providers: []
 })

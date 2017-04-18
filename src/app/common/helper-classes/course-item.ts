@@ -8,7 +8,7 @@ export class CourseItem implements Course {
 	description: string;
 	topRated: boolean;
 
-	constructor(title: string, createDate: Date, duration: number, description: string, topRated: boolean) {
+	constructor(title?: string, createDate?: Date, duration?: number, description?: string, topRated?: boolean) {
 		this.title = title;
 		this.createDate = createDate;
 		this.duration = duration;

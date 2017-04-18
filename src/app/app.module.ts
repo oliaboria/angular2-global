@@ -7,6 +7,7 @@ import { MaterialModule } from '@angular/material';
 import { NgModule, ApplicationRef } from '@angular/core';
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { RouterModule, PreloadAllModules } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -50,6 +51,7 @@ const APP_PROVIDERS = [
 		BrowserModule,
 		FormsModule,
 		HttpModule,
+		BrowserAnimationsModule,
 		MaterialModule.forRoot(),
 		RouterModule.forRoot(ROUTES, {useHash: true, preloadingStrategy: PreloadAllModules}),
 		HeaderModule,

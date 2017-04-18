@@ -6,17 +6,22 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { routes } from './course-details.routes';
 
 import { CourseDetailsComponent } from './course-details.component';
+import { DurationComponent } from './duration/duration.component';
+
+import { PipeModule } from '../../common/pipes';
 
 @NgModule({
 	declarations: [
-		CourseDetailsComponent
+		CourseDetailsComponent,
+		DurationComponent
 	],
 	imports: [
 		routes,
 		FormsModule,
 		ReactiveFormsModule,
 		CommonModule,
-		MaterialModule
+		MaterialModule,
+		PipeModule
 	],
 	providers: []
 })

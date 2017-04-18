@@ -1,3 +1,28 @@
-<div>
-	course
+<div class="course-details-page">
+	<form name="courseForm" class="course-form" (submit)="manage()">
+		<md-input-container>
+			<input mdInput [(ngModel)]="course.title"
+				   placeholder="Title"
+				   type="text"
+				   name="title"
+				   required>
+		</md-input-container>
+		<md-input-container class="example-full-width">
+			<textarea mdInput
+			          [(ngModel)]="course.description"
+					  name="description"
+					  placeholder="Description"></textarea>
+		</md-input-container>
+		 <md-input-container>
+			<input mdInput [(ngModel)]="course.createDate"
+			       placeholder="Create Date"
+				   type="text"
+				   name="createDate"
+				   required>
+		</md-input-container>
+
+		<duration [courseDuration]="course.duration"></duration>
+		<button md-raised-button type="submit">Save</button>
+		<button md-button>Cancel</button>
+	</form>
 </div>

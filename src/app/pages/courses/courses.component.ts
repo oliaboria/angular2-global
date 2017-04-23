@@ -36,8 +36,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this.getCoursesSub.unsubscribe();
-		this.removeCourseSub.unsubscribe();
+		this.getCoursesSub && this.getCoursesSub.unsubscribe();
+		this.removeCourseSub && this.removeCourseSub.unsubscribe();
 	}
 
 	onDelete(id: number): void {

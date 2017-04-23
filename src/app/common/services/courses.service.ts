@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';;
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Course } from '../interfaces';
 import { CourseItem } from '../helper-classes';
@@ -41,7 +41,7 @@ export class CoursesService {
 			.toArray()
 			.subscribe((courses: Course[]) => {
 				this.courses = new BehaviorSubject(courses);
-			})
+			});
 	}
 
 	getCourses(): Observable<Course[]> {

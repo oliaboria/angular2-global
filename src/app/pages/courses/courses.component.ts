@@ -20,33 +20,32 @@ import { LoaderBlockService } from '../../common/components/loader-block';
 })
 export class CoursesComponent implements OnInit, OnDestroy {
 	items: Course[];
-	coursesSub: Subscription[] = [];
+	getCoursesSub: Subscription;
+	removeCourseSub: Subscription;
 
-	constructor(private coursesService: CoursesService, private loaderBlockService: LoaderBlockService) {
+	constructor(private coursesService: CoursesService,
+				private loaderBlockService: LoaderBlockService) {
 		this.items = [];
 	}
 
 	ngOnInit(): void {
-		this.coursesSub.push(
-			this.coursesService.getCourses()
-				.subscribe((items: Course[]) => {
-					this.items = items;
-				})
-		);
+		this.getCoursesSub = this.coursesService.getCourses()
+			.subscribe((items: Course[]) => {
+				this.items = items;
+			});
 	}
 
 	ngOnDestroy(): void {
-		this.coursesSub.forEach((sub: Subscription) => {
-			sub.unsubscribe();
-		});
+		this.getCoursesSub.unsubscribe();
+		this.removeCourseSub.unsubscribe();
 	}
 
 	onDelete(id: number): void {
-		this.coursesSub.push(
-			this.coursesService.removeCourse(id).subscribe(() => {
+		this.removeCourseSub = this.coursesService.removeCourse(id)
+			.subscribe(() => {
 				setTimeout(() => {
-						this.loaderBlockService.hide();
+					this.loaderBlockService.hide();
 				}, 1000);
-		}));
+			});
 	}
 }

@@ -18,7 +18,7 @@
 			</div>
 			<div class="col-md-2 course-item-buttons">
 				<div class="btn-container">
-					<button md-raised-button>Edit course</button>
+					<button md-raised-button (click)="edit(item.id)">Edit course</button>
 					<button md-raised-button color="warn" (click)="delete()">Delete course</button>
 				</div>
 			</div>

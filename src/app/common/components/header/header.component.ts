@@ -2,7 +2,10 @@ import { Component,
 		 ChangeDetectionStrategy,
 		 ChangeDetectorRef,
 		 OnInit,
+		 OnDestroy,
 		 ViewEncapsulation } from '@angular/core';
+
+import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '../../services';
 import { User } from '../../interfaces';
@@ -15,19 +18,24 @@ import { User } from '../../interfaces';
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 	userName: string;
 	isAuthenticated: boolean;
+	authSubscription: Subscription;
 
 	constructor(private cd: ChangeDetectorRef, public authService: AuthService) {}
 
 	ngOnInit(): void {
-		this.authService.getUserInfo().subscribe((user: User) => {
+		this.authSubscription = this.authService.getUserInfo().subscribe((user: User) => {
 			if (user) {
 				this.userName = user.name;
 				this.isAuthenticated = !!user.password;
 				this.cd.markForCheck();
 			}
 		});
+	}
+
+	ngOnDestroy(): void {
+		this.authSubscription.unsubscribe();
 	}
 }

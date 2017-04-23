@@ -50,6 +50,7 @@
 		"use-output-property-decorator": true,
 		"use-pipe-transform-interface": true,
 		"no-empty": false,
+		"no-unused-expression": [true, "allow-fast-null-checks"],
 		// General
 		"no-console": [
 			true,

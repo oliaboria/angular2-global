@@ -5,6 +5,8 @@ import { Component,
 		 ViewEncapsulation,
 		 Output } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
+import { Router } from '@angular/router';
+
 import { Subscription } from 'rxjs';
 
 import { ConfirmationModalComponent } from './confirmation-modal';
@@ -24,7 +26,7 @@ export class CourseComponent {
 
 	@Output() deleteCourse: EventEmitter<number> = new EventEmitter();
 
-	constructor(public dialog: MdDialog, private loaderBlockService: LoaderBlockService) {}
+	constructor(public dialog: MdDialog, private router: Router, private loaderBlockService: LoaderBlockService) {}
 
 	delete(): void {
 		let dialogRef = this.dialog.open(ConfirmationModalComponent);
@@ -37,5 +39,9 @@ export class CourseComponent {
 				this.deleteCourse.emit(this.item.id);
 			}
 		});
+	}
+
+	edit(id: string): void {
+		this.router.navigate(['/course', id]);
 	}
 }

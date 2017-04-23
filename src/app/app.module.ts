@@ -7,6 +7,7 @@ import { MaterialModule } from '@angular/material';
 import { NgModule, ApplicationRef } from '@angular/core';
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 import { RouterModule, PreloadAllModules } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -22,6 +23,7 @@ import { LoaderBlockComponent } from './common/components/loader-block';
 
 // Pages
 import { CoursesModule } from './pages/courses';
+import { CourseDetailsModule } from './pages/course-details';
 import { LoginModule } from './pages/login';
 
 // Services
@@ -49,11 +51,13 @@ const APP_PROVIDERS = [
 		BrowserModule,
 		FormsModule,
 		HttpModule,
+		BrowserAnimationsModule,
 		MaterialModule.forRoot(),
 		RouterModule.forRoot(ROUTES, {useHash: true, preloadingStrategy: PreloadAllModules}),
 		HeaderModule,
 		FooterModule,
 		CoursesModule,
+		CourseDetailsModule,
 		LoginModule
 	],
 	providers: [ // expose our Services and Providers into Angular's dependency injection

@@ -1,5 +1,6 @@
 import { Component,
 		 ChangeDetectionStrategy,
+		 ChangeDetectorRef,
 		 OnInit,
 		 OnDestroy,
 		 ViewEncapsulation } from '@angular/core';
@@ -17,24 +18,34 @@ import { LoaderBlockService } from '../../common/components/loader-block';
 	templateUrl: './courses.template.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent implements OnInit, OnDestroy {
 	items: Course[];
+	getCoursesSub: Subscription;
+	removeCourseSub: Subscription;
 
-	constructor(private coursesService: CoursesService, private loaderBlockService: LoaderBlockService) {
+	constructor(private coursesService: CoursesService,
+				private loaderBlockService: LoaderBlockService) {
 		this.items = [];
 	}
 
 	ngOnInit(): void {
-		this.coursesService.getCourses().subscribe((items: Course[]) => {
-			this.items = items;
-		});
+		this.getCoursesSub = this.coursesService.getCourses()
+			.subscribe((items: Course[]) => {
+				this.items = items;
+			});
+	}
+
+	ngOnDestroy(): void {
+		this.getCoursesSub && this.getCoursesSub.unsubscribe();
+		this.removeCourseSub && this.removeCourseSub.unsubscribe();
 	}
 
 	onDelete(id: number): void {
-		this.coursesService.removeCourse(id).subscribe(() => {
-			setTimeout(() => {
+		this.removeCourseSub = this.coursesService.removeCourse(id)
+			.subscribe(() => {
+				setTimeout(() => {
 					this.loaderBlockService.hide();
-			}, 1000);
-		});
+				}, 1000);
+			});
 	}
 }

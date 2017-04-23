@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { Course } from '../interfaces';
 import { CourseItem } from '../helper-classes';
 
 @Injectable()
 export class CoursesService {
-	private courses: BehaviorSubject<Course[]> = new BehaviorSubject([]);
+	private courses: BehaviorSubject<Course[]>;
 
 	constructor() {
 		// This will be removed later. Add course is not implemented for now.
@@ -19,10 +18,30 @@ export class CoursesService {
 					'Class aptent taciti sociosqu ad litora torquent per ' +
 					'conubia nostra, per inceptos himenaeos.';
 
-		this.createCourse(new CourseItem('Video Course 1', new Date(2017, 3, 1), 30, description, false));
-		this.createCourse(new CourseItem('Video Course 2', new Date(2017, 1, 1), 225, description, true));
-		this.createCourse(new CourseItem('Video Course 3', new Date(2017, 4, 1), 120, description, true));
-		this.createCourse(new CourseItem('Video Course 4', new Date(2017, 11, 1), 15, description, false));
+		let newCourses: Observable<Course> = Observable.of(
+			new CourseItem('Video Course 1', new Date(2017, 3, 1), 30, description, false),
+			new CourseItem('Video Course 2', new Date(2017, 1, 1), 225, description, true),
+			new CourseItem('Video Course 3', new Date(2017, 4, 1), 120, description, true),
+			new CourseItem('Video Course 4', new Date(2017, 11, 1), 15, description, false),
+			new CourseItem('Video Course 5', new Date(2017, 4, 22), 120, description, true),
+			new CourseItem('Video Course 6', new Date(2017, 4, 23), 120, description, true)
+		);
+
+		newCourses
+			.filter((course: Course) => {
+				let diff = new Date().getTime() - course.createDate.getTime();
+
+				return (diff / (1000 * 3600 * 24)) < 14;
+			})
+			.map((course: Course) => {
+				course.title = `New ${course.title}`;
+
+				return course;
+			})
+			.toArray()
+			.subscribe((courses: Course[]) => {
+				this.courses = new BehaviorSubject(courses);
+			});
 	}
 
 	getCourses(): Observable<Course[]> {

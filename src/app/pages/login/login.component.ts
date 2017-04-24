@@ -23,7 +23,7 @@ export class LoginComponent {
 	constructor(private router: Router, private loaderBlockService: LoaderBlockService,
 				public  authService: AuthService) {
 		this.model = {
-			name: '',
+			login: '',
 			password: ''
 		};
 	}
@@ -31,10 +31,13 @@ export class LoginComponent {
 	login(model: User): void {
 		this.loaderBlockService.display();
 
-		setTimeout(() => {
-			this.loaderBlockService.hide();
-			this.authService.login(model);
-			this.router.navigate(['/']);
-		}, 1000);
+		this.authService.login(model)
+			.subscribe((data: any) => {
+				this.loaderBlockService.hide();
+				this.router.navigate(['/']);
+			}, (error: string) => {
+				this.loaderBlockService.hide();
+				console.log('error: ', error);
+			});
 	}
 }

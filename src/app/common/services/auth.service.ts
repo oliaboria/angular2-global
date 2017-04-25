@@ -3,12 +3,12 @@ import { Http, Response, Request, RequestOptions, Headers, URLSearchParams, Requ
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from './http.client.service';
 
-import { User } from '../interfaces';
+import { User, ResponseErrorHandler } from '../interfaces';
 import { TOKEN_KEY } from '../config';
 
 @Injectable()
 export class AuthService {
-	private userInfo: BehaviorSubject<User> = new BehaviorSubject(<User> {});
+	private authSubscription: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
 	constructor(private http: HttpClient) {}
 
@@ -17,32 +17,39 @@ export class AuthService {
 			.map((res: Response) => {
 				let resBody = res.json();
 
-				this.userInfo.next(user);
 				localStorage.setItem(TOKEN_KEY, resBody.token);
+				this.authSubscription.next(true);
 
 				return resBody;
 			})
-			.catch((err: Response, caught: Observable<any>) => {
-				let error = `Status: ${err.status}, Status text: ${err.statusText}`;
-
-				return Observable.throw(error);
-			});
+			.catch(this.handleError);
 	}
 
 	logout(): void {
-		this.userInfo.next({});
+		this.authSubscription.next(false);
 		localStorage.removeItem(TOKEN_KEY);
 	}
 
-	isAuthenticated(): boolean {
-		return !!localStorage.getItem(TOKEN_KEY);
+	isAuthenticated(): Observable<boolean> {
+		return this.authSubscription.asObservable();
 	}
 
-	getUserInfo(): Observable<User> {
-		if (!this.isAuthenticated()) {
-			this.userInfo.next(JSON.parse(localStorage.getItem(TOKEN_KEY)));
-		}
+	getUserInfo(): Observable<User | string> {
+		return this.http.post('/auth/userinfo', {})
+			.map((res: Response) => {
+				let resBody = res.json();
 
-		return this.userInfo.asObservable();
+				resBody.name = `${resBody.name.first} ${resBody.name.last}`;
+				this.authSubscription.next(true);
+
+				return resBody;
+			})
+			.catch(this.handleError);
+	}
+
+	private handleError: ResponseErrorHandler = (err: Response, caught: Observable<any>) => {
+		let error = `Status: ${err.status}, Status text: ${err.statusText}`;
+
+		return Observable.throw(error);
 	}
 }

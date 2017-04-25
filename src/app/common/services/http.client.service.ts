@@ -6,7 +6,7 @@ import { Http,
 		 RequestOptionsArgs,
 		 Response,
 		 Headers } from '@angular/http';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 
 import { BASE_URL, TOKEN_KEY } from '../config';
 

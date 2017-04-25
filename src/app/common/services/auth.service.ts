@@ -32,7 +32,7 @@ export class AuthService {
 	}
 
 	isAuthenticated(): Observable<boolean> {
-		return this.authSubscription.asObservable();
+		return this.authSubscription;
 	}
 
 	getUserInfo(): Observable<User | string> {

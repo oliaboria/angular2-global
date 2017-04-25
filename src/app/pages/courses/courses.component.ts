@@ -66,7 +66,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
 					this.isMoreCoursesAvailable = false;
 				}
 
-				window.scrollTo(0,0);
+				window.scrollTo(0, 0);
 				this.cd.markForCheck();
 			});
 	}

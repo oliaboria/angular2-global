@@ -4,8 +4,10 @@ import { Component,
 		 EventEmitter,
 		 Input,
 		 Output,
+		 OnChanges,
 		 OnInit,
 		 OnDestroy,
+		 SimpleChanges,
 		 ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -23,11 +25,11 @@ import { FilerByNamePipe } from '../../../common/pipes/filter-by-name.pipe';
 	templateUrl: './find-course.template.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FindCourseComponent implements OnInit, OnDestroy {
+export class FindCourseComponent implements OnDestroy, OnChanges {
 	@Input() courses: Course[];
 	@Output() coursesChange = new EventEmitter();
 
-	findCourseSub:Subscription;
+	findCourseSub: Subscription;
 
 	query: string;
 	private unsortedCourses: Course[];
@@ -37,8 +39,9 @@ export class FindCourseComponent implements OnInit, OnDestroy {
 		this.query = '';
 	}
 
-	ngOnInit(): void {
-		this.unsortedCourses = this.courses;
+
+	ngOnChanges(changes: SimpleChanges): void {
+		this.unsortedCourses = changes['courses'].currentValue;
 	}
 
 	ngOnDestroy(): void {
@@ -48,13 +51,12 @@ export class FindCourseComponent implements OnInit, OnDestroy {
 	findCourse(): void {
 		let filteredArr = this.filterPipe.transform(this.unsortedCourses, this.query);
 
+
 		this.findCourseSub = this.coursesService.findCourses(this.query)
 			.subscribe(() => {
 				console.log('success search request');
 			});
 
-		if (filteredArr.length) {
-			this.coursesChange.emit(filteredArr);
-		}
+		this.coursesChange.emit(filteredArr);
 	}
 }

@@ -50,11 +50,17 @@ export class CoursesService {
 	updateCourse(id: number, updateFields: {title?: string,
 											createDate?: Date,
 											duration?: string,
-											description?: string}): Course {
-		let updatedCourse = this.getCourseById(id);
+											description?: string}): Observable<Course[]> {
+		let updatedCourse: Course = this.getCourseById(id),
+			updatedIndex: number = this.getCourseIndex(id),
+			courses: Course[];
 
 		Object.assign(updatedCourse, updateFields);
-		return updatedCourse;
+		courses = this.courses.getValue();
+		courses[updatedIndex] = updatedCourse;
+		this.courses.next(courses);
+
+		return this.courses;
 	}
 
 	removeCourse(id: number): Observable<string> {

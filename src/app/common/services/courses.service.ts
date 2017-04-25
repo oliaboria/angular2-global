@@ -3,7 +3,7 @@ import { Response, URLSearchParams } from '@angular/http';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { Course, ResponseGetCourses } from '../interfaces';
+import { Course } from '../interfaces';
 import { CourseItem } from '../helper-classes';
 import { HttpClient } from './http.client.service';
 
@@ -47,19 +47,16 @@ export class CoursesService {
 		// 	});
 	}
 
-	getCourses(): Observable<ResponseGetCourses> {
+	getCourses(): Observable<Course[]> {
 		let params: URLSearchParams = new URLSearchParams();
 
 		params.set('start', '0');
 		params.set('count', '25');
 
 		return this.http.get('/courses', { params: params})
-			.map((res: Response) => {
-				let body = res.json(),
-					courses: Course[] = [];
-
-				body.courses.forEach((course) => {
-					courses.push(new CourseItem(
+			.flatMap((res: Response) => res.json())
+			.map((course: any) => {
+				return new CourseItem(
 						course.name,
 						new Date(course.date),
 						course.length,
@@ -67,14 +64,14 @@ export class CoursesService {
 						course.isTopRated,
 						course.authors,
 						course.id
-					));
-				});
+				);
+			})
+			.filter((course: Course) => {
+				let diff = new Date().getTime() - course.createDate.getTime();
 
-				return {
-					courses: courses,
-					totalPages: body.totalPages
-				};
-			});
+				return (diff / (1000 * 3600 * 24)) < 14;
+			})
+			.toArray();
 	}
 
 	createCourse(course: Course): Course {

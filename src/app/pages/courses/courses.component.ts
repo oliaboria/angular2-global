@@ -6,7 +6,7 @@ import { Component,
 		 ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Course, ResponseGetCourses } from '../../common/interfaces';
+import { Course } from '../../common/interfaces';
 import { CoursesService } from '../../common/services';
 import { LoaderBlockService } from '../../common/components/loader-block';
 
@@ -31,8 +31,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.getCoursesSub = this.coursesService.getCourses()
-			.subscribe((res: ResponseGetCourses) => {
-				this.items = res.courses;
+			.subscribe((courses: Course[]) => {
+				this.items = courses;
+				console.log(courses);
 				this.cd.markForCheck();
 			});
 	}

@@ -17,14 +17,9 @@ module.exports = (server) => {
 			to = courses.length;
 		}
 
-		const totalPages = Math.round(courses.length / query.count);
-
 		courses = courses.slice(from, to);
 
-		res.json({
-			courses: courses,
-			totalPages: totalPages
-		});
+		res.json(courses);
 	});
 
 	return router;

@@ -14,5 +14,12 @@
 		</li>
 	</ul>
 
+	<div class="add-more-button">
+		<button md-raised-button color="accent"
+				[disabled]="!isMoreCoursesAvailable"
+				(click)="getMoreCourses()">
+				Add more</button>
+	</div>
+
 	<div *ngIf="!items.length" class="no-courses"> No courses found.</div>
 </div>

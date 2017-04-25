@@ -47,11 +47,11 @@ export class CoursesService {
 		// 	});
 	}
 
-	getCourses(): Observable<Course[]> {
+	getCourses(start: number, count: number): Observable<Course[]> {
 		let params: URLSearchParams = new URLSearchParams();
 
-		params.set('start', '0');
-		params.set('count', '25');
+		params.set('start', start.toString());
+		params.set('count', count.toString());
 
 		return this.http.get('/courses', { params: params})
 			.flatMap((res: Response) => res.json())

@@ -20,6 +20,10 @@ import { LoaderBlockService } from '../../common/components/loader-block';
 })
 export class CoursesComponent implements OnInit, OnDestroy {
 	items: Course[];
+	pageCount: number;
+	start: number;
+	isMoreCoursesAvailable: boolean;
+
 	getCoursesSub: Subscription;
 	removeCourseSub: Subscription;
 
@@ -27,15 +31,13 @@ export class CoursesComponent implements OnInit, OnDestroy {
 				private coursesService: CoursesService,
 				private loaderBlockService: LoaderBlockService) {
 		this.items = [];
+		this.pageCount = 5;
+		this.start = 0;
+		this.isMoreCoursesAvailable = true;
 	}
 
 	ngOnInit(): void {
-		this.getCoursesSub = this.coursesService.getCourses()
-			.subscribe((courses: Course[]) => {
-				this.items = courses;
-				console.log(courses);
-				this.cd.markForCheck();
-			});
+		this.getMoreCourses();
 	}
 
 	ngOnDestroy(): void {
@@ -49,6 +51,21 @@ export class CoursesComponent implements OnInit, OnDestroy {
 				setTimeout(() => {
 					this.loaderBlockService.hide();
 				}, 1000);
+			});
+	}
+
+	getMoreCourses(): void {
+		this.start += this.pageCount;
+		this.getCoursesSub = this.coursesService.getCourses(this.start, this.pageCount)
+			.subscribe((courses: Course[]) => {
+				if (courses.length) {
+					this.items = this.items.concat(courses);
+				} else {
+					this.isMoreCoursesAvailable = false;
+				}
+
+				window.scrollTo(0,0);
+				this.cd.markForCheck();
 			});
 	}
 }

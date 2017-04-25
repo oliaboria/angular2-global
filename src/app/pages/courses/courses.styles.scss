@@ -20,4 +20,13 @@
 	.no-courses {
 		font-size: 2rem;
 	}
+
+	.add-more-button {
+		text-align: center;
+		margin-bottom: 2rem;
+
+		button {
+			color: $accent-btn-text;
+		}
+	}
 }

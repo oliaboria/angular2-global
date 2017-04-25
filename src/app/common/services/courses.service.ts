@@ -57,14 +57,9 @@ export class CoursesService {
 		return updatedCourse;
 	}
 
-	removeCourse(id: number): Observable<Course[]> {
-		let removedIndex = this.getCourseIndex(id);
-
-		if (removedIndex > -1) {
-			this.courses.getValue().splice(removedIndex, 1);
-		}
-
-		return this.courses.asObservable();
+	removeCourse(id: number): Observable<string> {
+		return this.http.delete(`/courses/${id}`)
+			.map((res: Response) => res.json());
 	}
 
 	private getCourseIndex(id: number): number {

@@ -14,10 +14,10 @@
 		</li>
 	</ul>
 
-	<div class="add-more-button">
+	<div class="add-more-button" *ngIf="items.length">
 		<button md-raised-button color="accent"
 				[disabled]="!isMoreCoursesAvailable"
-				(click)="getMoreCourses()">
+				(click)="getMoreCourses(5)">
 				Add more</button>
 	</div>
 

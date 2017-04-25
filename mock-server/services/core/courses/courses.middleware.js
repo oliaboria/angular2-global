@@ -24,5 +24,19 @@ module.exports = (server) => {
 		res.json(courses);
 	});
 
+	router.delete('/courses/:id', (req, res, next) => {
+		let id = req.params.id,
+			courses = server.db.getState().courses;
+
+		const deletedIndex = courses.findIndex((course) => course.id == id);
+
+		if (deletedIndex > -1) {
+			courses.splice(deletedIndex, 1);
+			res.json('OK')
+		} else {
+			res.status(404).send('Wrong id');
+		}
+	});
+
 	return router;
 };

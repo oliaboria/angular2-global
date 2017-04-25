@@ -21,7 +21,7 @@ export class CourseItem implements Course {
 		this.duration = duration;
 		this.description = description;
 		this.topRated = topRated;
-		this.id = this.generateId();
+		this.id = id || this.generateId();
 		this.authors = authors;
 	}
 

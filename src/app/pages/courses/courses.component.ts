@@ -37,7 +37,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.getMoreCourses();
+		this.getMoreCourses(0);
 	}
 
 	ngOnDestroy(): void {
@@ -48,14 +48,16 @@ export class CoursesComponent implements OnInit, OnDestroy {
 	onDelete(id: number): void {
 		this.removeCourseSub = this.coursesService.removeCourse(id)
 			.subscribe(() => {
-				setTimeout(() => {
-					this.loaderBlockService.hide();
-				}, 1000);
+				this.loaderBlockService.hide();
+				this.items = [];
+				this.getMoreCourses(0);
+			}, () => {
+				this.loaderBlockService.hide();
 			});
 	}
 
-	getMoreCourses(): void {
-		this.start += this.pageCount;
+	getMoreCourses(count: number): void {
+		this.start += count;
 		this.getCoursesSub = this.coursesService.getCourses(this.start, this.pageCount)
 			.subscribe((courses: Course[]) => {
 				if (courses.length) {

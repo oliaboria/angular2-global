@@ -2,7 +2,7 @@ import 'hammerjs';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { NgModule, ApplicationRef } from '@angular/core';
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
@@ -30,12 +30,20 @@ import { LoginModule } from './pages/login';
 import { AuthService } from './common/services';
 import { CoursesService } from './common/services';
 import { LoaderBlockService } from './common/components/loader-block';
+import { HttpClient } from './common/services';
 
 // Application wide providers
 const APP_PROVIDERS = [
 	AuthService,
 	CoursesService,
-	LoaderBlockService
+	LoaderBlockService,
+	{
+      provide: HttpClient,
+      useFactory: (backend: XHRBackend, options: RequestOptions) => {
+        return new HttpClient(backend, options);
+      },
+      deps: [XHRBackend, RequestOptions]
+    }
 ];
 
 /**

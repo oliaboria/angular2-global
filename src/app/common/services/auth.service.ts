@@ -1,24 +1,19 @@
 import { Injectable  } from '@angular/core';
 import { Http, Response, Request, RequestOptions, Headers, URLSearchParams, RequestMethod } from '@angular/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from './http.client.service';
 
 import { User } from '../interfaces';
-
-const TOKEN_KEY = 'token';
+import { TOKEN_KEY } from '../config';
 
 @Injectable()
 export class AuthService {
 	private userInfo: BehaviorSubject<User> = new BehaviorSubject(<User> {});
-	private baseUrl: string;
 
-	constructor(private http: Http) {
-		this.baseUrl = 'http://localhost:3004';
-	}
+	constructor(private http: HttpClient) {}
 
 	login(user: User): Observable<any> {
-		let url = `${this.baseUrl}/auth/login`;
-
-		return this.http.post(url, user)
+		return this.http.post('/auth/login', user)
 			.map((res: Response) => {
 				let resBody = res.json();
 

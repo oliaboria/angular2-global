@@ -6,7 +6,7 @@ import { Component,
 		 ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Course } from '../../common/interfaces';
+import { Course, ResponseGetCourses } from '../../common/interfaces';
 import { CoursesService } from '../../common/services';
 import { LoaderBlockService } from '../../common/components/loader-block';
 
@@ -23,15 +23,17 @@ export class CoursesComponent implements OnInit, OnDestroy {
 	getCoursesSub: Subscription;
 	removeCourseSub: Subscription;
 
-	constructor(private coursesService: CoursesService,
+	constructor(private cd: ChangeDetectorRef,
+				private coursesService: CoursesService,
 				private loaderBlockService: LoaderBlockService) {
 		this.items = [];
 	}
 
 	ngOnInit(): void {
 		this.getCoursesSub = this.coursesService.getCourses()
-			.subscribe((items: Course[]) => {
-				this.items = items;
+			.subscribe((res: ResponseGetCourses) => {
+				this.items = res.courses;
+				this.cd.markForCheck();
 			});
 	}
 

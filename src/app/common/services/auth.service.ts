@@ -1,9 +1,10 @@
 import { Injectable  } from '@angular/core';
-import { Http, Response, Request, RequestOptions, Headers, URLSearchParams, RequestMethod } from '@angular/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpClient } from './http.client.service';
+import { Response } from '@angular/http';
 
-import { User, ResponseErrorHandler } from '../interfaces';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+import { HttpClient } from './http.client.service';
+import { ResponseErrorHandler, User } from '../interfaces';
 import { TOKEN_KEY } from '../config';
 
 @Injectable()

@@ -20,11 +20,9 @@ export class HttpClient extends Http {
 	request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
 		let token = localStorage.getItem(TOKEN_KEY);
 
-		console.log('lalal', url)
 		if (typeof url === 'string') { // meaning we have to add the token to the options, not in url
 			url = `${BASE_URL}${url}`;
 
-			console.log(url)
 			if (!options) {
 				options = { headers: new Headers() };
 			}

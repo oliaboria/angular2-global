@@ -13,6 +13,8 @@ module.exports = (server) => {
 			queryStr = query.query,
 			courses = server.db.getState().courses;
 
+		console.log('Query:', queryStr);
+
 		if (courses.length < to) {
 			to = courses.length;
 		}

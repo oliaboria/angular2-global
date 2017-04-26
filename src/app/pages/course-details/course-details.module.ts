@@ -6,7 +6,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { routes } from './course-details.routes';
 
 import { CourseDetailsComponent } from './course-details.component';
-import { DurationComponent } from './duration/duration.component';
+import { DurationInputComponent } from './duration-input/duration-input.component';
 import { DateInputComponent } from './date-input/date-input.component';
 
 import { PipeModule } from '../../common/pipes';
@@ -15,7 +15,7 @@ import { PipeModule } from '../../common/pipes';
 	declarations: [
 		CourseDetailsComponent,
 		DateInputComponent,
-		DurationComponent
+		DurationInputComponent
 
 	],
 	imports: [

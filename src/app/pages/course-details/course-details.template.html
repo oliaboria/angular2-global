@@ -34,7 +34,10 @@
 		<date-input [createDate]="course.createDate"
 					[control]="courseForm.controls.createDate"
 					formControlName="createDate"></date-input>
-		<!--<duration [courseDuration]="course.duration"></duration>-->
+
+		<duration-input [courseDuration]="course.duration"
+						[control]="courseForm.controls.duration"
+						formControlName="duration"></duration-input>
 
 		<button md-raised-button type="submit"
 				[disabled]="courseForm.invalid">Save</button>

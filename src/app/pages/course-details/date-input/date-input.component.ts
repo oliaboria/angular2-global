@@ -11,18 +11,16 @@ import { ActivatedRoute, Params } from '@angular/router';
 	encapsulation: ViewEncapsulation.None,
 	templateUrl: './date-input.template.html',
 	providers: [
-	{
-		provide: NG_VALUE_ACCESSOR,
-		useExisting: forwardRef(() => DateInputComponent),
-		multi: true
-	}
-  ]
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: forwardRef(() => DateInputComponent),
+			multi: true
+		}
+    ]
 })
 export class DateInputComponent implements ControlValueAccessor {
 	@Input() createDate: string;
 	@Input() control: FormControl;
-
-	dateValue: string;
 
 	propagateChange = (obj: string) => {};
 

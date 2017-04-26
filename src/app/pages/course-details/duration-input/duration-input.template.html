@@ -1,0 +1,18 @@
+<div class="duration">
+	<md-input-container>
+			<input mdInput
+				   #duration
+				   placeholder="Duration"
+				   type="text"
+				   name="duration"
+				   (keyup)="onChange($event)"
+		   		   (blur)="onChange($event)">
+			<md-hint *ngIf="!control.pristine && control.invalid"
+					  class="error-hint"
+					  align="end">
+					  Duration is required. It should be number.
+			</md-hint>
+	</md-input-container>
+
+	<span *ngIf="control.valid">{{duration.value | duration: 'h min'}}</span>
+</div>

@@ -8,7 +8,7 @@ export class LoaderBlockService {
 	private _show: Subject<boolean> = new Subject();
 
 	get show(): Observable<boolean> {
-		return this._show.asObservable();
+		return this._show;
 	}
 
 	display(): void {

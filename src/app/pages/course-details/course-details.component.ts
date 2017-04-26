@@ -21,7 +21,7 @@ import { LoaderBlockService } from '../../common/components/loader-block';
 	templateUrl: './course-details.template.html'
 })
 export class CourseDetailsComponent implements OnInit, OnDestroy {
-	course: Course = new CourseItem();
+	course: Course = new CourseItem('', null, null, '', false, []);
 	courseId: number;
 	sub: Subscription;
 
@@ -40,7 +40,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
 				if (this.courseId) {
 					let course = this.coursesService.getCourseById(this.courseId);
-					this.course = course ? course : new CourseItem();
+					this.course = course ? course : new CourseItem('', null, null, '', false, []);
 				}
 			});
 	}

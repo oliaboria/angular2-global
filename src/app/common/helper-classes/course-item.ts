@@ -1,4 +1,4 @@
-import { Course } from '../interfaces';
+import { Course, CourseAuthors } from '../interfaces';
 
 export class CourseItem implements Course {
 	title: string;
@@ -7,14 +7,22 @@ export class CourseItem implements Course {
 	duration: number;
 	description: string;
 	topRated: boolean;
+	authors: CourseAuthors[];
 
-	constructor(title?: string, createDate?: Date, duration?: number, description?: string, topRated?: boolean) {
+	constructor(title: string,
+				createDate: Date,
+				duration: number,
+				description: string,
+				topRated: boolean,
+				authors: CourseAuthors[],
+				id?: number) {
 		this.title = title;
 		this.createDate = createDate;
 		this.duration = duration;
 		this.description = description;
 		this.topRated = topRated;
-		this.id = this.generateId();
+		this.id = id || this.generateId();
+		this.authors = authors;
 	}
 
 	private generateId(): number {

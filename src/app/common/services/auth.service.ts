@@ -1,33 +1,56 @@
 import { Injectable  } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Response } from '@angular/http';
 
-import { User } from '../interfaces';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+import { HttpClient } from './http.client.service';
+import { ResponseErrorHandler, User } from '../interfaces';
+import { TOKEN_KEY } from '../config';
 
 @Injectable()
 export class AuthService {
-	private userInfo: BehaviorSubject<User> = new BehaviorSubject(<User> {});
+	private authSubscription: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-	login(user: User): void {
-		this.userInfo.next(user);
-		localStorage.setItem('userInfo', JSON.stringify(user));
+	constructor(private http: HttpClient) {}
+
+	login(user: User): Observable<any> {
+		return this.http.post('/auth/login', user)
+			.map((res: Response) => {
+				let resBody = res.json();
+
+				localStorage.setItem(TOKEN_KEY, resBody.token);
+				this.authSubscription.next(true);
+
+				return resBody;
+			})
+			.catch(this.handleError);
 	}
 
 	logout(): void {
-		this.userInfo.next({});
-		localStorage.removeItem('userInfo');
+		this.authSubscription.next(false);
+		localStorage.removeItem(TOKEN_KEY);
 	}
 
-	isAuthenticated(): boolean {
-		return !!this.userInfo.getValue().password;
+	isAuthenticated(): Observable<boolean> {
+		return this.authSubscription;
 	}
 
-	getUserInfo(): Observable<User> {
-		if (!this.isAuthenticated()) {
-			this.userInfo.next(JSON.parse(localStorage.getItem('userInfo')));
-		}
+	getUserInfo(): Observable<User | string> {
+		return this.http.post('/auth/userinfo', {})
+			.map((res: Response) => {
+				let resBody = res.json();
 
-		return this.userInfo.asObservable();
+				resBody.name = `${resBody.name.first} ${resBody.name.last}`;
+				this.authSubscription.next(true);
+
+				return resBody;
+			})
+			.catch(this.handleError);
+	}
+
+	private handleError: ResponseErrorHandler = (err: Response, caught: Observable<any>) => {
+		let error = `Status: ${err.status}, Status text: ${err.statusText}`;
+
+		return Observable.throw(error);
 	}
 }

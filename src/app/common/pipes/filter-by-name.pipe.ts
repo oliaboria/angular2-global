@@ -7,7 +7,7 @@ import { Course } from '../interfaces';
 export class FilerByNamePipe implements PipeTransform {
 	transform(array: Course[], name: string): Course[] {
 		return _.filter(array, (item: Course) => {
-			 return item.title.indexOf(name) !== -1;
+			 return item.title.toLowerCase().indexOf(name.toLowerCase()) !== -1;
 		});
 	}
 }

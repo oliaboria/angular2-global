@@ -35,6 +35,7 @@
     "github-deploy:dev": "webpack --config config/webpack.github-deploy.js --progress --profile --env.githubDev",
     "github-deploy:prod": "webpack --config config/webpack.github-deploy.js --progress --profile --env.githubProd",
     "github-deploy": "npm run github-deploy:dev",
+	"json-server": "cd mock-server && node index.js",
     "lint": "npm run tslint \"src/**/*.ts\"",
     "postinstall": "npm run webdriver:update",
     "postversion": "git push && git push --tags",
@@ -90,7 +91,10 @@
     "jasmine-core": "^2.5.2",
     "reflect-metadata": "^0.1.9",
     "rxjs": "5.0.2",
-    "zone.js": "0.8.4"
+    "zone.js": "0.8.4",
+	"express": "^4.14.1",
+	"json-server": "^0.9.4",
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "@angular/compiler-cli": "4.0.2",

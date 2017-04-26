@@ -32,6 +32,10 @@ export class AuthService {
 	}
 
 	isAuthenticated(): Observable<boolean> {
+		if (!this.authSubscription.getValue()) {
+			this.authSubscription.next(!!localStorage.getItem(TOKEN_KEY));
+		}
+
 		return this.authSubscription;
 	}
 

@@ -28,21 +28,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	constructor(private cd: ChangeDetectorRef, public authService: AuthService) {}
 
 	ngOnInit(): void {
-		this.userInfoSubscription = this.authService.getUserInfo()
-			.subscribe((user: User) => {
-				this.userName = user.name;
-				this.cd.markForCheck();
-			});
 
 		this.authSubscription = this.authService.isAuthenticated()
 			.subscribe((isAuth: boolean) => {
 				this.isAuthenticated = isAuth;
+
+				if (isAuth) {
+					this.getUserInfo();
+				}
+
 				this.cd.markForCheck();
 			});
 	}
 
 	ngOnDestroy(): void {
-		this.userInfoSubscription.unsubscribe();
+		this.userInfoSubscription && this.userInfoSubscription.unsubscribe();
 		this.authSubscription.unsubscribe();
+	}
+
+	private getUserInfo(): void {
+		this.userInfoSubscription = this.authService.getUserInfo()
+			.subscribe((user: User) => {
+				this.userName = user.name;
+				this.cd.markForCheck();
+				this.userInfoSubscription.unsubscribe();
+			}, () => {
+				this.userInfoSubscription.unsubscribe();
+			});
 	}
 }

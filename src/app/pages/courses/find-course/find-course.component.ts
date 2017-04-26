@@ -39,7 +39,6 @@ export class FindCourseComponent implements OnDestroy, OnChanges {
 		this.query = '';
 	}
 
-
 	ngOnChanges(changes: SimpleChanges): void {
 		this.unsortedCourses = changes['courses'].currentValue;
 	}

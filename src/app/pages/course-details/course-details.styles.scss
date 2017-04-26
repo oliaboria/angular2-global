@@ -1,3 +1,5 @@
+@import "../../styles/variables/colors.scss";
+
 .course-details-page {
 	.course-form {
 		width: 800px;
@@ -6,11 +8,22 @@
 	}
 
 	md-input-container {
-		display: block;
+		display: inline-block;
 		margin: 2rem 0;
+		width: 100%;
 	}
 
 	textarea {
 		min-height: 5rem;
+	}
+
+	.error-hint {
+		color: $error-color;
+	}
+
+	md-input-container.ng-invalid.ng-touched {
+		.mat-input-underline {
+			border-color: $error-color;
+		}
 	}
 }

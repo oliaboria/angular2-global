@@ -1,8 +1,15 @@
+@import "../../styles/variables/colors.scss";
+
 .login-page {
-	.login-form {
+	.login-form,
+	.unauthorized {
 		width: 500px;
 		margin: 0 auto;
 		padding: 1rem;
+	}
+
+	.unauthorized {
+		color: $error-color;
 	}
 
 	md-input-container {

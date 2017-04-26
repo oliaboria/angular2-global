@@ -50,7 +50,6 @@ export class FindCourseComponent implements OnDestroy, OnChanges {
 	findCourse(): void {
 		let filteredArr = this.filterPipe.transform(this.unsortedCourses, this.query);
 
-
 		this.findCourseSub = this.coursesService.findCourses(this.query)
 			.subscribe(() => {
 				console.log('success search request');

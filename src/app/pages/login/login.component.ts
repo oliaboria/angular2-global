@@ -1,5 +1,6 @@
 import { Component,
 		 ChangeDetectionStrategy,
+		 ChangeDetectorRef,
 		 OnInit,
 		 OnDestroy,
 		 ViewEncapsulation } from '@angular/core';
@@ -21,8 +22,10 @@ import { LoaderBlockService } from '../../common/components/loader-block';
 export class LoginComponent implements OnDestroy {
 	model: User;
 	loginSub: Subscription;
+	unauthorizedMessage: string;
 
 	constructor(private router: Router, private loaderBlockService: LoaderBlockService,
+				private cd: ChangeDetectorRef,
 				public  authService: AuthService) {
 		this.model = {
 			login: '',
@@ -31,6 +34,8 @@ export class LoginComponent implements OnDestroy {
 			fakeToken: '',
 			id: null
 		};
+
+		this.unauthorizedMessage = '';
 	}
 
 	ngOnDestroy(): void {
@@ -46,7 +51,8 @@ export class LoginComponent implements OnDestroy {
 				this.router.navigate(['/']);
 			}, (error: string) => {
 				this.loaderBlockService.hide();
-				console.log('error: ', error);
+				this.unauthorizedMessage = 'Please check your login or password';
+				this.cd.markForCheck();
 			});
 	}
 }

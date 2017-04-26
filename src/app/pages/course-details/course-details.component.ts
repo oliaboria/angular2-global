@@ -58,7 +58,8 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
 	private formInit(): void {
 		this.courseForm = this.formBuilder.group({
-			title: [this.course.title, [Validators.required, Validators.maxLength(50)]]
+			title: [this.course.title, [Validators.required, Validators.maxLength(50)]],
+			description: [this.course.title, [Validators.required, Validators.maxLength(500)]]
 		});
 	}
 }

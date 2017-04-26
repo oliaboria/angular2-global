@@ -21,7 +21,8 @@
 		color: $error-color;
 	}
 
-	md-input-container.ng-invalid.ng-touched {
+	md-input-container.ng-invalid.ng-touched,
+	md-input-container.ng-invalid.ng-dirty {
 		.mat-input-underline {
 			border-color: $error-color;
 		}

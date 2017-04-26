@@ -31,14 +31,10 @@
 			</md-hint>
 		</md-input-container>
 
-		 <!--<md-input-container>
-			<input mdInput
-			       placeholder="Create Date"
-				   type="text"
-				   name="createDate">
-		</md-input-container>
-
-		<duration [courseDuration]="course.duration"></duration>-->
+		<date-input [createDate]="course.createDate"
+					[control]="courseForm.controls.createDate"
+					formControlName="createDate"></date-input>
+		<!--<duration [courseDuration]="course.duration"></duration>-->
 
 		<button md-raised-button type="submit"
 				[disabled]="courseForm.invalid">Save</button>

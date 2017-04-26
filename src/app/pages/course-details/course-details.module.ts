@@ -7,13 +7,16 @@ import { routes } from './course-details.routes';
 
 import { CourseDetailsComponent } from './course-details.component';
 import { DurationComponent } from './duration/duration.component';
+import { DateInputComponent } from './date-input/date-input.component';
 
 import { PipeModule } from '../../common/pipes';
 
 @NgModule({
 	declarations: [
 		CourseDetailsComponent,
+		DateInputComponent,
 		DurationComponent
+
 	],
 	imports: [
 		routes,

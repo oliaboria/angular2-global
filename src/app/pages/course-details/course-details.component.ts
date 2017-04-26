@@ -14,6 +14,8 @@ import { CoursesService } from '../../common/services';
 import { CourseItem } from '../../common/helper-classes';
 import { LoaderBlockService } from '../../common/components/loader-block';
 
+import { validateDate } from '../../common/validators';
+
 @Component({
 	selector: 'course-details',
 	encapsulation: ViewEncapsulation.None,
@@ -59,7 +61,8 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 	private formInit(): void {
 		this.courseForm = this.formBuilder.group({
 			title: [this.course.title, [Validators.required, Validators.maxLength(50)]],
-			description: [this.course.title, [Validators.required, Validators.maxLength(500)]]
+			description: [this.course.title, [Validators.required, Validators.maxLength(500)]],
+			createDate: [this.course.createDate, [Validators.required, validateDate]]
 		});
 	}
 }

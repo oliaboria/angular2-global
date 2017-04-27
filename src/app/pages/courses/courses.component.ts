@@ -62,6 +62,13 @@ export class CoursesComponent implements OnInit, OnDestroy {
 	getMoreCourses(count: number): void {
 		this.start += count;
 		this.getCoursesSub = this.coursesService.getCourses(this.start, this.pageCount)
+			.flatMap((courses: Course[]) => courses)
+			.filter((course: Course) => {
+				let diff = new Date().getTime() - course.createDate.getTime();
+
+				return (diff / (1000 * 3600 * 24)) < 14;
+			})
+			.toArray()
 			.subscribe((courses: Course[]) => {
 				if (courses.length) {
 					this.items = this.filteredItems = this.items.concat(courses);

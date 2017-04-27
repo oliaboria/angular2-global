@@ -99,11 +99,6 @@ export class CoursesService {
 						course.id
 				);
 			})
-			.filter((course: Course) => {
-				let diff = new Date().getTime() - course.createDate.getTime();
-
-				return (diff / (1000 * 3600 * 24)) < 14;
-			})
 			.toArray()
 			.do((courses: Course[]) => {
 				this.courses.next(courses);

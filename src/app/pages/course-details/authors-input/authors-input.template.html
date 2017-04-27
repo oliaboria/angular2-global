@@ -1,0 +1,7 @@
+<fieldset class="authors">
+	<div *ngFor="let author of authors">
+		<md-checkbox [(ngModel)]="author.checked">
+					 <span>{{author.fullName}}</span>
+		</md-checkbox>
+	</div>
+</fieldset>

@@ -70,7 +70,13 @@ export class CoursesService {
 
 	getAuthors(): Observable<CourseAuthors[]> {
 		return this.http.get('/authors')
-			.map((res: Response) => res.json());
+			.flatMap((res: Response) => res.json())
+			.map((author: CourseAuthors) => {
+				author.checked = false;
+				author.fullName = `${author.firstName} ${author.lastName}`;
+				return author;
+			})
+			.toArray();
 	}
 
 	private getCourseIndex(id: number): number {

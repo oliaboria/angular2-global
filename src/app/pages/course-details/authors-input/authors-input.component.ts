@@ -11,7 +11,14 @@ import { CourseAuthors } from '../../../common/interfaces';
 	selector: 'authors-input',
 	encapsulation: ViewEncapsulation.None,
 	templateUrl: './authors-input.template.html',
-	styleUrls: ['./authors-input.styles.scss']
+	styleUrls: ['./authors-input.styles.scss'],
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: forwardRef(() => AuthorsInputComponent),
+			multi: true
+		}
+    ]
 })
 export class AuthorsInputComponent implements ControlValueAccessor {
 	@Input() authors: CourseAuthors[];

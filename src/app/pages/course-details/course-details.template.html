@@ -39,7 +39,8 @@
 						[control]="courseForm.controls.duration"
 						formControlName="duration"></duration-input>
 
-		<authors-input [authors]="authors"></authors-input>
+		<authors-input [authors]="authors"
+					   formControlName="authors"></authors-input>
 
 		<button md-raised-button type="submit"
 				[disabled]="courseForm.invalid">Save</button>

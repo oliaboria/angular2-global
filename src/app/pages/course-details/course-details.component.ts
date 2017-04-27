@@ -7,7 +7,7 @@ import { Component,
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { Course, CourseAuthors } from '../../common/interfaces';
 import { CoursesService } from '../../common/services';
@@ -27,8 +27,9 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 	course: Course = new CourseItem('', null, null, '', false, []);
 	courseId: number;
 	authors: CourseAuthors[];
-	routerSub: Subscription;
-	authorsSub: Subscription;
+	routerObservable: Observable<Params>;
+	authorsObservable: Observable<CourseAuthors[]>;
+	allSub: Subscription;
 	courseForm: FormGroup;
 
 	constructor(private route: ActivatedRoute,
@@ -37,18 +38,20 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 				private loaderBlockService: LoaderBlockService) {}
 
 	ngOnInit(): void {
-		this.routerSub = this.route.params
-			.subscribe(this.handleCourseId);
+		this.routerObservable = this.route.params;
+		this.authorsObservable = this.coursesService.getAuthors();
+		this.formInit();
 
-		this.authorsSub = this.coursesService.getAuthors()
-			.subscribe((authors: CourseAuthors[]) => {
-				this.authors = authors;
+		this.allSub = Observable.combineLatest(this.routerObservable, this.authorsObservable)
+			.subscribe((res: [Params, CourseAuthors[]]) => {
+				this.handleCourseId(res[0]);
+				this.authors = res[1];
+				this.formUpdate();
 			});
 	}
 
 	ngOnDestroy(): void {
-		this.routerSub.unsubscribe();
-		this.authorsSub.unsubscribe();
+		this.allSub.unsubscribe();
 	}
 
 	submit(courseForm: FormGroup): void {
@@ -62,16 +65,25 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 			let course = this.coursesService.getCourseById(this.courseId);
 			this.course = course ? course : new CourseItem('', null, null, '', false, []);
 		}
-
-		this.formInit();
 	}
 
 	private formInit(): void {
 		this.courseForm = this.formBuilder.group({
-			title: [this.course.title, [Validators.required, Validators.maxLength(50)]],
-			description: [this.course.title, [Validators.required, Validators.maxLength(500)]],
-			createDate: [this.course.createDate, [Validators.required, validateDate]],
-			duration: [this.course.duration, [Validators.required, validateDuration]]
+			title: ['', [Validators.required, Validators.maxLength(50)]],
+			description: ['', [Validators.required, Validators.maxLength(500)]],
+			createDate: ['', [Validators.required, validateDate]],
+			duration: ['', [Validators.required, validateDuration]],
+			authors: []
+		});
+	}
+
+	private formUpdate(): void {
+		this.courseForm.patchValue({
+			title: this.course.title,
+			description: this.course.description,
+			createDate: this.course.createDate,
+			duration: this.course.duration,
+			authors: this.authors
 		});
 	}
 }

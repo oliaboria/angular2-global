@@ -24,7 +24,7 @@ export class AuthorsInputComponent implements ControlValueAccessor {
 	@Input() authors: CourseAuthors[];
 	@Input() control: FormControl;
 
-	result: number[] = []
+	result: number[] = [];
 
 	propagateChange = (obj:  number[]) => {};
 

@@ -5,7 +5,6 @@ import { Component,
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 
-
 @Component({
 	selector: 'date-input',
 	encapsulation: ViewEncapsulation.None,

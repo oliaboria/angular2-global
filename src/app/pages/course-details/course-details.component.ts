@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { Subscription } from 'rxjs';
 
-import { Course } from '../../common/interfaces';
+import { Course, CourseAuthors } from '../../common/interfaces';
 import { CoursesService } from '../../common/services';
 import { CourseItem } from '../../common/helper-classes';
 import { LoaderBlockService } from '../../common/components/loader-block';
@@ -26,7 +26,9 @@ import { validateDate, validateDuration } from '../../common/validators';
 export class CourseDetailsComponent implements OnInit, OnDestroy {
 	course: Course = new CourseItem('', null, null, '', false, []);
 	courseId: number;
-	sub: Subscription;
+	authors: CourseAuthors[];
+	routerSub: Subscription;
+	authorsSub: Subscription;
 	courseForm: FormGroup;
 
 	constructor(private route: ActivatedRoute,
@@ -35,15 +37,21 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 				private loaderBlockService: LoaderBlockService) {}
 
 	ngOnInit(): void {
-		this.sub = this.route.params
+		this.routerSub = this.route.params
 			.subscribe(this.handleCourseId);
+
+		this.authorsSub = this.coursesService.getAuthors()
+			.subscribe((authors: CourseAuthors[]) => {
+				this.authors = authors;
+			});
 	}
 
 	ngOnDestroy(): void {
-		this.sub.unsubscribe();
+		this.routerSub.unsubscribe();
+		this.authorsSub.unsubscribe();
 	}
 
-	manage(courseForm: FormGroup): void {
+	submit(courseForm: FormGroup): void {
 		console.log(courseForm);
 	}
 

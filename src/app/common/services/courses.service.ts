@@ -3,7 +3,7 @@ import { Response, URLSearchParams } from '@angular/http';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { Course } from '../interfaces';
+import { Course, CourseAuthors } from '../interfaces';
 import { CourseItem } from '../helper-classes';
 import { HttpClient } from './http.client.service';
 
@@ -65,6 +65,11 @@ export class CoursesService {
 
 	removeCourse(id: number): Observable<string> {
 		return this.http.delete(`/courses/${id}`)
+			.map((res: Response) => res.json());
+	}
+
+	getAuthors(): Observable<CourseAuthors[]> {
+		return this.http.get('/authors')
 			.map((res: Response) => res.json());
 	}
 

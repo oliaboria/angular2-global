@@ -22,14 +22,13 @@ import { CourseAuthors } from '../../../common/interfaces';
 })
 export class AuthorsInputComponent implements ControlValueAccessor {
 	@Input() authors: CourseAuthors[];
+	@Input() control: FormControl;
 
-	propagateChange = (obj: CourseAuthors[]) => {};
+	result: number[] = []
 
-	writeValue(value: CourseAuthors[]) {
-		if (value) {
-			this.authors = value;
-		}
-	}
+	propagateChange = (obj:  number[]) => {};
+
+	writeValue(obj: any) {}
 
 	registerOnChange(fn: any) {
 		this.propagateChange = fn;
@@ -38,6 +37,15 @@ export class AuthorsInputComponent implements ControlValueAccessor {
 	registerOnTouched() {}
 
 	onChange(event): void {
-		this.propagateChange(event.target.value);
+		const id = event.source.id;
+
+		if (event.checked) {
+			this.result.push(id);
+		} else {
+			const deletedIndex = this.result.findIndex((authorId: number) => authorId === id);
+      		this.result.splice(deletedIndex, 1);
+		}
+
+		this.propagateChange(this.result);
 	}
 }

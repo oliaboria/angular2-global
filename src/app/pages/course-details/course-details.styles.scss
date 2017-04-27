@@ -17,8 +17,14 @@
 		min-height: 5rem;
 	}
 
-	.error-hint {
+	.error-hint,
+	.error-message {
 		color: $error-color;
+	}
+
+	.error-message {
+		text-align: right;
+		margin-top: 1rem;
 	}
 
 	md-input-container.ng-invalid.ng-touched,

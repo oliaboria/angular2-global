@@ -14,7 +14,7 @@ import { CoursesService } from '../../common/services';
 import { CourseItem } from '../../common/helper-classes';
 import { LoaderBlockService } from '../../common/components/loader-block';
 
-import { validateDate, validateDuration } from '../../common/validators';
+import { validateDate } from '../../common/validators';
 
 @Component({
 	selector: 'course-details',
@@ -72,8 +72,8 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 			title: ['', [Validators.required, Validators.maxLength(50)]],
 			description: ['', [Validators.required, Validators.maxLength(500)]],
 			createDate: ['', [Validators.required, validateDate]],
-			duration: ['', [Validators.required, validateDuration]],
-			authors: []
+			duration: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+			authors: [null, Validators.required]
 		});
 	}
 
@@ -83,7 +83,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 			description: this.course.description,
 			createDate: this.course.createDate,
 			duration: this.course.duration,
-			authors: this.authors
+			authors: null
 		});
 	}
 }

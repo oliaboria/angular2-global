@@ -42,6 +42,6 @@ export class CourseComponent {
 	}
 
 	edit(id: string): void {
-		this.router.navigate(['/course', id]);
+		this.router.navigate(['/courses', id]);
 	}
 }

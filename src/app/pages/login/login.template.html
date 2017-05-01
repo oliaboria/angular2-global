@@ -1,12 +1,19 @@
 <div class="login-page">
-	<form name="loginForm" class="login-form" (submit)="login(model)">
+	<div class="unauthorized">{{unauthorizedMessage}}</div>
+
+	<form name="loginForm"
+		  class="login-form"
+		  #loginForm="ngForm"
+		  (submit)="login(loginForm.value)">
 		<md-input-container>
-			<input mdInput [(ngModel)]="model.login" placeholder="Login" type="text" name="username" required>
+			<input mdInput [(ngModel)]="model.login" placeholder="Login" type="text" name="login" required>
 		</md-input-container>
 		<md-input-container>
 			<input mdInput [(ngModel)]="model.password" placeholder="Password" type="text" name="password" required>
 		</md-input-container>
 
-		<button md-raised-button type="submit">Login</button>
+		<button md-raised-button type="submit"
+				[disabled]="loginForm.pristine || loginForm.invalid">
+				Login</button>
 	</form>
 </div>

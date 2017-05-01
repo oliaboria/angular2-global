@@ -1,0 +1,13 @@
+<fieldset class="authors">
+	<div *ngFor="let author of authors">
+		<md-checkbox [(ngModel)]="author.checked"
+					 [id]="author.id"
+					 (change)="onChange($event)">
+			<span>{{author.fullName}}</span>
+		</md-checkbox>
+	</div>
+	<div *ngIf="!control.pristine && control.invalid"
+		 class="error-message">
+		 At least one author required.
+	</div>
+</fieldset>

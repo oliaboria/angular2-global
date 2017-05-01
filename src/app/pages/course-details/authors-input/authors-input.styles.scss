@@ -1,0 +1,19 @@
+@import "../../../styles/variables/colors.scss";
+
+.authors {
+	border: 1px solid $text-color;
+	padding: 2rem;
+	margin-bottom: 2rem;
+
+	md-checkbox {
+		width: 100%;
+		display: block;
+		position: relative;
+
+		.mat-checkbox-label {
+			position: absolute;
+			right: 0;
+			display: block;
+		}
+	}
+}

@@ -1,0 +1,13 @@
+ <md-input-container>
+	<input mdInput
+		   placeholder="Create Date"
+		   type="text"
+		   name="createDate"
+		   (keyup)="onChange($event)"
+		   (blur)="onChange($event)">
+	<md-hint *ngIf="!control.pristine && control.invalid"
+			  class="error-hint"
+			  align="end">
+			  Create Date is required. Date format should be dd/MM/yyyy.
+			</md-hint>
+</md-input-container>

@@ -27,10 +27,13 @@ export class CoursesComponent implements OnInit, OnDestroy {
 	getCoursesSub: Subscription;
 	removeCourseSub: Subscription;
 
+	private filteredItems: Course[];
+
 	constructor(private cd: ChangeDetectorRef,
 				private coursesService: CoursesService,
 				private loaderBlockService: LoaderBlockService) {
 		this.items = [];
+		this.filteredItems = [];
 		this.pageCount = 5;
 		this.start = 0;
 		this.isMoreCoursesAvailable = true;
@@ -59,15 +62,25 @@ export class CoursesComponent implements OnInit, OnDestroy {
 	getMoreCourses(count: number): void {
 		this.start += count;
 		this.getCoursesSub = this.coursesService.getCourses(this.start, this.pageCount)
+			.flatMap((courses: Course[]) => courses)
+			.filter((course: Course) => {
+				let diff = new Date().getTime() - course.createDate.getTime();
+
+				return (diff / (1000 * 3600 * 24)) < 14;
+			})
+			.toArray()
 			.subscribe((courses: Course[]) => {
 				if (courses.length) {
-					this.items = this.items.concat(courses);
+					this.items = this.filteredItems = this.items.concat(courses);
 				} else {
 					this.isMoreCoursesAvailable = false;
 				}
 
-				window.scrollTo(0, 0);
 				this.cd.markForCheck();
 			});
+	}
+
+	onFindCourse(array: Course[]): void {
+		this.filteredItems = array;
 	}
 }

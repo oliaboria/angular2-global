@@ -3,7 +3,7 @@ import { Response, URLSearchParams } from '@angular/http';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { Course } from '../interfaces';
+import { Course, CourseAuthors } from '../interfaces';
 import { CourseItem } from '../helper-classes';
 import { HttpClient } from './http.client.service';
 
@@ -68,6 +68,17 @@ export class CoursesService {
 			.map((res: Response) => res.json());
 	}
 
+	getAuthors(): Observable<CourseAuthors[]> {
+		return this.http.get('/authors')
+			.flatMap((res: Response) => res.json())
+			.map((author: CourseAuthors) => {
+				author.checked = false;
+				author.fullName = `${author.firstName} ${author.lastName}`;
+				return author;
+			})
+			.toArray();
+	}
+
 	private getCourseIndex(id: number): number {
 		let course: Course = this.getCourseById(id);
 
@@ -87,11 +98,6 @@ export class CoursesService {
 						course.authors,
 						course.id
 				);
-			})
-			.filter((course: Course) => {
-				let diff = new Date().getTime() - course.createDate.getTime();
-
-				return (diff / (1000 * 3600 * 24)) < 14;
 			})
 			.toArray()
 			.do((courses: Course[]) => {

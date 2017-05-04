@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MaterialModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -30,7 +30,8 @@ import { PipeModule } from '../../common/pipes';
 		PipeModule
 	],
 	providers: [
-		CourseDetailsGuard
+		CourseDetailsGuard,
+		DatePipe
 	]
 })
 export class CourseDetailsModule {

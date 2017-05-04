@@ -3,6 +3,7 @@
 		   placeholder="Create Date"
 		   type="text"
 		   name="createDate"
+		   [ngModel]="createDate | date: 'dd/MM/y'"
 		   (keyup)="onChange($event)"
 		   (blur)="onChange($event)">
 	<md-hint *ngIf="!control.pristine && control.invalid"

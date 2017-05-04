@@ -4,6 +4,7 @@ import { Component,
 		 OnInit,
 		 OnDestroy,
 		 ViewEncapsulation } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -33,6 +34,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 	courseForm: FormGroup;
 
 	constructor(private route: ActivatedRoute,
+				private datePipe: DatePipe,
 				private formBuilder: FormBuilder,
 				private coursesService: CoursesService,
 				private loaderBlockService: LoaderBlockService) {}
@@ -81,7 +83,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 		this.courseForm.patchValue({
 			title: this.course.title,
 			description: this.course.description,
-			createDate: this.course.createDate,
+			createDate: this.datePipe.transform(this.course.createDate, 'dd/MM/y'),
 			duration: this.course.duration,
 			authors: null
 		});

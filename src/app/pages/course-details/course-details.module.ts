@@ -10,6 +10,8 @@ import { CourseDetailsComponent } from './course-details.component';
 import { DurationInputComponent } from './duration-input/duration-input.component';
 import { DateInputComponent } from './date-input/date-input.component';
 
+import { CourseDetailsGuard } from './course-details.guard';
+
 import { PipeModule } from '../../common/pipes';
 
 @NgModule({
@@ -27,7 +29,9 @@ import { PipeModule } from '../../common/pipes';
 		MaterialModule,
 		PipeModule
 	],
-	providers: []
+	providers: [
+		CourseDetailsGuard
+	]
 })
 export class CourseDetailsModule {
 	constructor() {}

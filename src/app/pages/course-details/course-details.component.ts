@@ -5,7 +5,7 @@ import { Component,
 		 OnDestroy,
 		 ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Observable, Subscription } from 'rxjs';
 

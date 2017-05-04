@@ -10,13 +10,11 @@ export class CourseDetailsGuard implements CanActivate {
 	canActivate(routeSnapshot: ActivatedRouteSnapshot): boolean {
 		const param = routeSnapshot.params['id'] || routeSnapshot.url[1].path;
 
-		console.log('apram', param)
-
 		if (param === 'new' || !isNaN(+param)) {
 			return true;
 		}
 
-		this.router.navigateByUrl('404', { skipLocationChange: true })
+		this.router.navigateByUrl('404', { skipLocationChange: true });
 		return false;
 	}
 }

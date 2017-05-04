@@ -38,7 +38,6 @@ export class FindCourseComponent implements OnDestroy {
 		this.query = '';
 	}
 
-
 	ngOnDestroy(): void {
 		this.findCourseSub && this.findCourseSub.unsubscribe();
 	}

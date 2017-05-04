@@ -26,7 +26,7 @@ export class AuthorsInputComponent implements ControlValueAccessor {
 
 	result: number[] = [];
 
-	propagateChange = (obj:  number[]) => {};
+	propagateChange = (obj: number[]) => {};
 
 	writeValue(obj: any) {}
 

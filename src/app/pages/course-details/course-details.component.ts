@@ -12,7 +12,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 
 import { Course, CourseAuthors } from '../../common/interfaces';
+
+import { BreadcrumbService } from '../../common/services';
 import { CoursesService } from '../../common/services';
+
 import { CourseItem } from '../../common/helper-classes';
 import { LoaderBlockService } from '../../common/components/loader-block';
 
@@ -34,13 +37,14 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 	authorsObservable: Observable<CourseAuthors[]>;
 	allSub: Subscription;
 	courseSub: Subscription;
-	updateCourseSub: Subscription;
+	submitCourseSub: Subscription;
 	courseForm: FormGroup;
 
 	constructor(private route: ActivatedRoute,
 				private router: Router,
 				private datePipe: DatePipe,
 				private formBuilder: FormBuilder,
+				private breadcrumbService: BreadcrumbService,
 				private coursesService: CoursesService,
 				private loaderBlockService: LoaderBlockService) {}
 
@@ -55,21 +59,22 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 				this.handleCourseId(res[0]);
 				this.populateCourse();
 				this.formUpdate();
+				this.setBreadcrumb();
 			});
 	}
 
 	ngOnDestroy(): void {
 		this.allSub.unsubscribe();
 		this.courseSub && this.courseSub.unsubscribe();
-		this.updateCourseSub && this.updateCourseSub.unsubscribe();
+		this.submitCourseSub && this.submitCourseSub.unsubscribe();
 	}
 
 	submit(courseForm: FormGroup): void {
 		if (this.isEditState) {
-			this.updateCourseSub = this.coursesService.updateCourse(this.courseId, courseForm.value)
+			this.submitCourseSub = this.coursesService.updateCourse(this.courseId, courseForm.value)
 				.subscribe(this.navgateToHome);
 		} else {
-			this.updateCourseSub = this.coursesService.createCourse(courseForm.value)
+			this.submitCourseSub = this.coursesService.createCourse(courseForm.value)
 				.subscribe(this.navgateToHome);
 		}
 	}
@@ -130,5 +135,19 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
 	private navgateToHome: () => void  = () => {
 		this.router.navigate(['/courses']);
+	}
+
+	private setBreadcrumb: () => void = () => {
+		if (this.isEditState) {
+			this.breadcrumbService.setCrumb({
+				title: `Course ${this.courseId}`,
+				url: `/courses/${this.courseId}`
+			});
+		} else {
+			this.breadcrumbService.setCrumb({
+				title: `New course`,
+				url: `/courses/new`
+			});
+		}
 	}
 }

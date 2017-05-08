@@ -1,4 +1,13 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component,
+		 ChangeDetectionStrategy,
+		 ChangeDetectorRef,
+		 OnInit,
+		 OnDestroy,
+		 ViewEncapsulation } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+import { Breadcrumb } from '../../interfaces';
+import { BreadcrumbService } from '../../services';
 
 @Component({
 	selector: 'breadcrumbs',
@@ -8,7 +17,22 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BreadcrumbsComponent {
+export class BreadcrumbsComponent implements OnInit, OnDestroy {
+	crumbSub: Subscription;
+	crumbs: Breadcrumb[];
 
-	constructor () {}
+	constructor (protected breadcrumbService: BreadcrumbService,
+				 private cd: ChangeDetectorRef) {}
+
+	ngOnInit(): void {
+		this.crumbSub = this.breadcrumbService.breadcrumbs
+			.subscribe((crumbs: Breadcrumb[]) => {
+				this.crumbs = crumbs;
+				this.cd.markForCheck();
+			});
+	}
+
+	ngOnDestroy(): void {
+		this.crumbSub.unsubscribe();
+	}
 }

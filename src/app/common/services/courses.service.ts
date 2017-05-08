@@ -41,17 +41,7 @@ export class CoursesService {
 	getCourseById(id: number): Observable<Course> {
 		return this.http.get(`/courses/${id}`)
 			.map((res: Response) => res.json())
-			.map((course: any) => {
-				return new CourseItem(
-						course.name,
-						new Date(course.date),
-						course.length,
-						course.description,
-						course.isTopRated,
-						course.authors,
-						course.id
-				);
-			});
+			.map(this.transformCourse);
 	}
 
 	getCourseByIdFromCollection(id: number): Course {
@@ -87,10 +77,8 @@ export class CoursesService {
 	getAuthors(): Observable<CourseAuthors[]> {
 		return this.http.get('/authors')
 			.flatMap((res: Response) => res.json())
-			.map((author: CourseAuthors) => {
-				author.checked = false;
-				author.fullName = `${author.firstName} ${author.lastName}`;
-				return author;
+			.map((author: any) => {
+				return this.transformAuthor(author, false);
 			})
 			.toArray();
 	}
@@ -104,20 +92,33 @@ export class CoursesService {
 	private requestCourses(params: URLSearchParams): Observable<Course[]> {
 		return this.http.get('/courses', { params: params})
 			.flatMap((res: Response) => res.json())
-			.map((course: any) => {
-				return new CourseItem(
-						course.name,
-						new Date(course.date),
-						course.length,
-						course.description,
-						course.isTopRated,
-						course.authors,
-						course.id
-				);
-			})
+			.map(this.transformCourse)
 			.toArray()
 			.do((courses: Course[]) => {
 				this.courses.next(courses);
 			});
+	}
+
+	private transformAuthor: (author: any, cheked: boolean) => CourseAuthors =
+							 (author: any, cheked: boolean) => {
+		author.checked = cheked;
+		author.fullName = `${author.firstName} ${author.lastName}`;
+		return author;
+	}
+
+	private transformCourse: (course: any) => Course = (course: any) => {
+		let authors = course.authors.map((author: CourseAuthors) => {
+			return this.transformAuthor(author, true);
+		});
+
+		return new CourseItem(
+				course.name,
+				new Date(course.date),
+				course.length,
+				course.description,
+				course.isTopRated,
+				authors,
+				course.id
+		);
 	}
 }

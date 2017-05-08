@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Component,
 		 ChangeDetectionStrategy,
 		 ChangeDetectorRef,
@@ -47,8 +48,8 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
 		this.allSub = Observable.combineLatest(this.routerObservable, this.authorsObservable)
 			.subscribe((res: [Params, CourseAuthors[]]) => {
-				this.handleCourseId(res[0]);
 				this.authors = res[1];
+				this.handleCourseId(res[0]);
 				this.formUpdate();
 			});
 	}
@@ -70,10 +71,12 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
 			if (course) {
 				this.course = course;
+				this.checkAuthors(this.course.authors);
 			} else {
 				this.courseSub = this.coursesService.getCourseById(this.courseId)
 					.subscribe((courseFromServer: Course) => {
 						this.course = courseFromServer;
+						this.checkAuthors(this.course.authors);
 						this.formUpdate();
 					});
 			}
@@ -100,5 +103,10 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 			duration: this.course.duration,
 			authors: null
 		});
+	}
+
+	private checkAuthors: (authors: CourseAuthors[]) => CourseAuthors[] =
+						  (authors: CourseAuthors[]) => {
+		return _.merge(this.authors, authors);
 	}
 }

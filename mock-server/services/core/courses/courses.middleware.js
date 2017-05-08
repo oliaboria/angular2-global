@@ -16,6 +16,15 @@ const findAuthors = (serverAuthors, authorsIds) => {
 	return authors;
 };
 
+const getDate = (dateStr) => {
+	let date = dateStr.split('/');
+	return new Date(date[2], date[1] - 1, date[0]);
+}
+
+const generateId = () => {
+	return Math.floor(Math.random() * 1000000) + (new Date()).getTime();
+}
+
 module.exports = (server) => {
 
 	router.get('/courses', (req, res, next) => {
@@ -38,6 +47,24 @@ module.exports = (server) => {
 		res.json(courses);
 	});
 
+	router.post('/courses', (req, res, next) => {
+		let course = req.body,
+			courses = server.db.getState().courses,
+			authors = server.db.getState().authors;
+
+		courses.push({
+			id: generateId(),
+			name: course.title,
+			description: course.description,
+			isTopRated: false,
+			date: getDate(course.createDate),
+			authors: findAuthors(authors, course.authors),
+			length: course.duration
+		});
+
+		res.json('OK');
+	});
+
 	router.get('/courses/:id', (req, res, next) => {
 		let id = req.params.id,
 			courses = server.db.getState().courses;
@@ -54,7 +81,6 @@ module.exports = (server) => {
 	router.post('/courses/:id', (req, res, next) => {
 		let course = req.body,
 			id = req.params.id,
-			date = course.createDate.split('/'),
 			courses = server.db.getState().courses,
 			authors = server.db.getState().authors;
 
@@ -63,7 +89,7 @@ module.exports = (server) => {
 		if (courseToUpdate) {
 			courseToUpdate.name = course.title;
 			courseToUpdate.description = course.description;
-			courseToUpdate.date = new Date(date[2], date[1] - 1, date[0]);
+			courseToUpdate.date = getDate(course.createDate);
 			courseToUpdate.authors = findAuthors(authors, course.authors);
 			courseToUpdate.length = course.duration;
 

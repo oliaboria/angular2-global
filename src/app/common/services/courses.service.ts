@@ -30,12 +30,9 @@ export class CoursesService {
 		return this.requestCourses(params);
 	}
 
-	createCourse(course: Course): Course {
-		let courses = this.courses.getValue();
-
-		courses.push(course);
-		this.courses.next(courses);
-		return course;
+	createCourse(course: Course): Observable<string> {
+		return this.http.post('/courses', course)
+			.map((res: Response) => res.json());
 	}
 
 	getCourseById(id: number): Observable<Course> {

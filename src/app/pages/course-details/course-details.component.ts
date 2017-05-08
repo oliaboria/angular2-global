@@ -28,6 +28,7 @@ import { validateDate } from '../../common/validators';
 export class CourseDetailsComponent implements OnInit, OnDestroy {
 	course: Course = new CourseItem('', null, null, '', false, []);
 	courseId: number;
+	isEditState: boolean;
 	authors: CourseAuthors[];
 	routerObservable: Observable<Params>;
 	authorsObservable: Observable<CourseAuthors[]>;
@@ -52,6 +53,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 			.subscribe((res: [Params, CourseAuthors[]]) => {
 				this.authors = res[1];
 				this.handleCourseId(res[0]);
+				this.populateCourse();
 				this.formUpdate();
 			});
 	}
@@ -63,36 +65,22 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 	}
 
 	submit(courseForm: FormGroup): void {
-		this.updateCourseSub = this.coursesService.updateCourse(this.courseId, courseForm.value)
-			.subscribe(() => {
-				this.router.navigate(['/courses']);
-			});
+		if (this.isEditState) {
+			this.updateCourseSub = this.coursesService.updateCourse(this.courseId, courseForm.value)
+				.subscribe(this.navgateToHome);
+		} else {
+			this.updateCourseSub = this.coursesService.createCourse(courseForm.value)
+				.subscribe(this.navgateToHome);
+		}
 	}
 
 	cancel(): void {
-		this.router.navigate(['/courses']);
+		this.navgateToHome();
 	}
 
 	private handleCourseId: (params: Params) => void = (params: Params) => {
 		this.courseId = +params['id'];
-
-		if (!isNaN(this.courseId)) {
-			let course = this.coursesService.getCourseByIdFromCollection(this.courseId);
-
-			if (course) {
-				this.course = course;
-				this.checkAuthors(this.course.authors);
-			} else {
-				this.courseSub = this.coursesService.getCourseById(this.courseId)
-					.subscribe((courseFromServer: Course) => {
-						this.course = courseFromServer;
-						this.checkAuthors(this.course.authors);
-						this.formUpdate();
-					});
-			}
-		} else {
-			this.course = new CourseItem('', null, null, '', false, []);
-		}
+		this.isEditState = !isNaN(this.courseId);
 	}
 
 	private formInit(): void {
@@ -115,8 +103,32 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 		});
 	}
 
+	private populateCourse: () => void = () => {
+		if (this.isEditState) {
+			let course = this.coursesService.getCourseByIdFromCollection(this.courseId);
+
+			if (course) {
+				this.course = course;
+				this.checkAuthors(this.course.authors);
+			} else {
+				this.courseSub = this.coursesService.getCourseById(this.courseId)
+					.subscribe((courseFromServer: Course) => {
+						this.course = courseFromServer;
+						this.checkAuthors(this.course.authors);
+						this.formUpdate();
+					});
+			}
+		} else {
+			this.course = new CourseItem('', null, null, '', false, []);
+		}
+	}
+
 	private checkAuthors: (authors: CourseAuthors[]) => CourseAuthors[] =
 						  (authors: CourseAuthors[]) => {
 		return _.merge(this.authors, authors);
+	}
+
+	private navgateToHome: () => void  = () => {
+		this.router.navigate(['/courses']);
 	}
 }

@@ -1,11 +1,17 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { CourseDetailsComponent } from './course-details.component';
-import { CourseDetailsGuard } from './course-details.guard';
+import { AuthGuard, CourseDetailsGuard } from '../../common/guards';
 
 const courseDetailsRoutes: Routes = [
-	{ path: 'courses/new', component: CourseDetailsComponent, canActivate: [CourseDetailsGuard]},
-	{ path: 'courses/:id', component: CourseDetailsComponent, canActivate: [CourseDetailsGuard]}
+	{
+		path: 'courses/new',
+		component: CourseDetailsComponent,
+		canActivate: [AuthGuard, CourseDetailsGuard]},
+	{
+		path: 'courses/:id',
+		component: CourseDetailsComponent,
+		canActivate: [AuthGuard, CourseDetailsGuard]}
 ];
 
 export const routes = RouterModule.forChild(courseDetailsRoutes);

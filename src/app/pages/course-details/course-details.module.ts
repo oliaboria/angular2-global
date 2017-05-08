@@ -10,7 +10,7 @@ import { CourseDetailsComponent } from './course-details.component';
 import { DurationInputComponent } from './duration-input/duration-input.component';
 import { DateInputComponent } from './date-input/date-input.component';
 
-import { CourseDetailsGuard } from './course-details.guard';
+import { AuthGuard, CourseDetailsGuard } from '../../common/guards';
 
 import { PipeModule } from '../../common/pipes';
 
@@ -30,6 +30,7 @@ import { PipeModule } from '../../common/pipes';
 		PipeModule
 	],
 	providers: [
+		AuthGuard,
 		CourseDetailsGuard,
 		DatePipe
 	]

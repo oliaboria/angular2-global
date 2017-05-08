@@ -15,6 +15,8 @@ import { ColorByDateDirective } from '../../common/directives/color-by-date.dire
 
 import { PipeModule } from '../../common/pipes';
 
+import { AuthGuard } from '../../common/guards';
+
 @NgModule({
 	entryComponents: [ConfirmationModalComponent],
 	declarations: [
@@ -32,7 +34,9 @@ import { PipeModule } from '../../common/pipes';
 		MaterialModule,
 		PipeModule
 	],
-	providers: []
+	providers: [
+		AuthGuard
+	]
 })
 export class CoursesModule {
 	constructor() {}

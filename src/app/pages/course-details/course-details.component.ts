@@ -111,7 +111,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 			description: this.course.description,
 			createDate: this.datePipe.transform(this.course.createDate, 'dd/MM/y'),
 			duration: this.course.duration,
-			authors: null
+			authors: this.course.authors
 		});
 	}
 

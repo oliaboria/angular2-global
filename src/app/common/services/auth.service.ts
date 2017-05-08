@@ -45,7 +45,6 @@ export class AuthService {
 				let resBody = res.json();
 
 				resBody.name = `${resBody.name.first} ${resBody.name.last}`;
-				this.authSubscription.next(true);
 
 				return resBody;
 			})

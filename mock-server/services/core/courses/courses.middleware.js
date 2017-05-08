@@ -24,6 +24,19 @@ module.exports = (server) => {
 		res.json(courses);
 	});
 
+	router.get('/courses/:id', (req, res, next) => {
+		let id = req.params.id,
+			courses = server.db.getState().courses;
+
+		const course = courses.find((course) => course.id == id);
+
+		if (course) {
+			res.json(course);
+		} else {
+			res.status(404).send('Wrong id');
+		}
+	});
+
 	router.delete('/courses/:id', (req, res, next) => {
 		let id = req.params.id,
 			courses = server.db.getState().courses;
@@ -32,7 +45,7 @@ module.exports = (server) => {
 
 		if (deletedIndex > -1) {
 			courses.splice(deletedIndex, 1);
-			res.json('OK')
+			res.json('OK');
 		} else {
 			res.status(404).send('Wrong id');
 		}

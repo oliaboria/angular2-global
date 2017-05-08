@@ -31,6 +31,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 	routerObservable: Observable<Params>;
 	authorsObservable: Observable<CourseAuthors[]>;
 	allSub: Subscription;
+	courseSub: Subscription;
 	courseForm: FormGroup;
 
 	constructor(private route: ActivatedRoute,
@@ -54,6 +55,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.allSub.unsubscribe();
+		this.courseSub && this.courseSub.unsubscribe();
 	}
 
 	submit(courseForm: FormGroup): void {
@@ -63,9 +65,20 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 	private handleCourseId: (params: Params) => void = (params: Params) => {
 		this.courseId = +params['id'];
 
-		if (this.courseId) {
-			let course = this.coursesService.getCourseById(this.courseId);
-			this.course = course ? course : new CourseItem('', null, null, '', false, []);
+		if (!isNaN(this.courseId)) {
+			let course = this.coursesService.getCourseByIdFromCollection(this.courseId);
+
+			if (course) {
+				this.course = course;
+			} else {
+				this.courseSub = this.coursesService.getCourseById(this.courseId)
+					.subscribe((courseFromServer: Course) => {
+						this.course = courseFromServer;
+						this.formUpdate();
+					});
+			}
+		} else {
+			this.course = new CourseItem('', null, null, '', false, []);
 		}
 	}
 

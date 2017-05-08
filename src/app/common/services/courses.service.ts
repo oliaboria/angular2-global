@@ -38,7 +38,23 @@ export class CoursesService {
 		return course;
 	}
 
-	getCourseById(id: number): Course {
+	getCourseById(id: number): Observable<Course> {
+		return this.http.get(`/courses/${id}`)
+			.map((res: Response) => res.json())
+			.map((course: any) => {
+				return new CourseItem(
+						course.name,
+						new Date(course.date),
+						course.length,
+						course.description,
+						course.isTopRated,
+						course.authors,
+						course.id
+				);
+			});
+	}
+
+	getCourseByIdFromCollection(id: number): Course {
 		let course = this.courses.getValue()
  		 	.find((item: Course) => {
 				return item.id === id;
@@ -51,7 +67,7 @@ export class CoursesService {
 											createDate?: Date,
 											duration?: string,
 											description?: string}): Observable<Course[]> {
-		let updatedCourse: Course = this.getCourseById(id),
+		let updatedCourse: Course = this.getCourseByIdFromCollection(id),
 			updatedIndex: number = this.getCourseIndex(id),
 			courses: Course[];
 
@@ -80,7 +96,7 @@ export class CoursesService {
 	}
 
 	private getCourseIndex(id: number): number {
-		let course: Course = this.getCourseById(id);
+		let course: Course = this.getCourseByIdFromCollection(id);
 
 		return this.courses.getValue().indexOf(course);
 	}

@@ -53,20 +53,9 @@ export class CoursesService {
 		return course;
 	}
 
-	updateCourse(id: number, updateFields: {title?: string,
-											createDate?: Date,
-											duration?: string,
-											description?: string}): Observable<Course[]> {
-		let updatedCourse: Course = this.getCourseByIdFromCollection(id),
-			updatedIndex: number = this.getCourseIndex(id),
-			courses: Course[];
-
-		Object.assign(updatedCourse, updateFields);
-		courses = this.courses.getValue();
-		courses[updatedIndex] = updatedCourse;
-		this.courses.next(courses);
-
-		return this.courses;
+	updateCourse(id: number, course: Course): Observable<string> {
+		return this.http.post(`/courses/${id}`, course)
+			.map((res: Response) => res.json());
 	}
 
 	removeCourse(id: number): Observable<string> {

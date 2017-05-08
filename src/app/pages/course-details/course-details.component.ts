@@ -6,7 +6,7 @@ import { Component,
 		 OnDestroy,
 		 ViewEncapsulation } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Observable, Subscription } from 'rxjs';
@@ -33,9 +33,11 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 	authorsObservable: Observable<CourseAuthors[]>;
 	allSub: Subscription;
 	courseSub: Subscription;
+	updateCourseSub: Subscription;
 	courseForm: FormGroup;
 
 	constructor(private route: ActivatedRoute,
+				private router: Router,
 				private datePipe: DatePipe,
 				private formBuilder: FormBuilder,
 				private coursesService: CoursesService,
@@ -57,10 +59,18 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 	ngOnDestroy(): void {
 		this.allSub.unsubscribe();
 		this.courseSub && this.courseSub.unsubscribe();
+		this.updateCourseSub && this.updateCourseSub.unsubscribe();
 	}
 
 	submit(courseForm: FormGroup): void {
-		console.log(courseForm);
+		this.updateCourseSub = this.coursesService.updateCourse(this.courseId, courseForm.value)
+			.subscribe(() => {
+				this.router.navigate(['/courses']);
+			});
+	}
+
+	cancel(): void {
+		this.router.navigate(['/courses']);
 	}
 
 	private handleCourseId: (params: Params) => void = (params: Params) => {

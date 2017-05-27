@@ -1,3 +1,9 @@
 <nav class="breadcrumb">
-	<a class="breadcrumb-item" href="#">Courses</a>
+	<span *ngFor="let crumb of crumbs; let last = last">
+		<a class="breadcrumb-item"
+		   *ngIf="!last"
+		   [routerLink]="crumb.url">{{crumb.title}}</a>
+
+		<span class="breadcrumb-item active" *ngIf="last">{{crumb.title}}</span>
+	</span>
 </nav>

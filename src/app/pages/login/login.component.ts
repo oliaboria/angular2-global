@@ -48,7 +48,7 @@ export class LoginComponent implements OnDestroy {
 		this.loginSub = this.authService.login(model)
 			.subscribe((data: any) => {
 				this.loaderBlockService.hide();
-				this.router.navigate(['/']);
+				this.router.navigate(['/courses']);
 			}, (error: string) => {
 				this.loaderBlockService.hide();
 				this.unauthorizedMessage = 'Please check your login or password';

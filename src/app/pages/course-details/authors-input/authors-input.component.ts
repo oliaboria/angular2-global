@@ -1,6 +1,7 @@
 import { Component,
 		 forwardRef,
 		 Input,
+		 OnInit,
 		 ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -24,11 +25,17 @@ export class AuthorsInputComponent implements ControlValueAccessor {
 	@Input() authors: CourseAuthors[];
 	@Input() control: FormControl;
 
-	result: number[] = [];
+	resultIds: number[] = [];
 
-	propagateChange = (obj:  number[]) => {};
+	propagateChange = (obj: number[]) => {};
 
-	writeValue(obj: any) {}
+	writeValue(authors: CourseAuthors[]) {
+		if (authors) {
+			authors.forEach((author: CourseAuthors) => {
+				this.resultIds.push(author.id);
+			});
+		}
+	}
 
 	registerOnChange(fn: any) {
 		this.propagateChange = fn;
@@ -40,12 +47,12 @@ export class AuthorsInputComponent implements ControlValueAccessor {
 		const id = event.source.id;
 
 		if (event.checked) {
-			this.result.push(id);
+			this.resultIds.push(id);
 		} else {
-			const deletedIndex = this.result.findIndex((authorId: number) => authorId === id);
-      		this.result.splice(deletedIndex, 1);
+			const deletedIndex = this.resultIds.findIndex((authorId: number) => authorId === id);
+			this.resultIds.splice(deletedIndex, 1);
 		}
 
-		this.propagateChange(this.result);
+		this.propagateChange(this.resultIds);
 	}
 }

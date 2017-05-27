@@ -6,9 +6,23 @@
 	padding-left: 0;
 
 	&-item {
+		margin-right: 1rem;
+
+		&:after {
+			content: '>';
+			display: inline-block;
+			margin-left: 1rem;
+		}
+
 		&.active {
+			&:after {
+				display: none;
+			}
+
 			background-color: $main-bg-color;
-			color: $orange-text;
+			color: $orange-text !important;
+			cursor: default;
+			text-decoration: none;
 		}
 	}
 }

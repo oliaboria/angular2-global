@@ -6,7 +6,9 @@ import { Component,
 		 ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Course } from '../../common/interfaces';
+import { Breadcrumb, Course } from '../../common/interfaces';
+
+import { BreadcrumbService } from '../../common/services';
 import { CoursesService } from '../../common/services';
 import { LoaderBlockService } from '../../common/components/loader-block';
 
@@ -30,6 +32,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
 	private filteredItems: Course[];
 
 	constructor(private cd: ChangeDetectorRef,
+				private breadcrumbService: BreadcrumbService,
 				private coursesService: CoursesService,
 				private loaderBlockService: LoaderBlockService) {
 		this.items = [];
@@ -41,6 +44,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.getMoreCourses(0);
+		this.breadcrumbService.setCrumb();
 	}
 
 	ngOnDestroy(): void {

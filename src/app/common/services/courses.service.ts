@@ -30,15 +30,18 @@ export class CoursesService {
 		return this.requestCourses(params);
 	}
 
-	createCourse(course: Course): Course {
-		let courses = this.courses.getValue();
-
-		courses.push(course);
-		this.courses.next(courses);
-		return course;
+	createCourse(course: Course): Observable<string> {
+		return this.http.post('/courses', course)
+			.map((res: Response) => res.json());
 	}
 
-	getCourseById(id: number): Course {
+	getCourseById(id: number): Observable<Course> {
+		return this.http.get(`/courses/${id}`)
+			.map((res: Response) => res.json())
+			.map(this.transformCourse);
+	}
+
+	getCourseByIdFromCollection(id: number): Course {
 		let course = this.courses.getValue()
  		 	.find((item: Course) => {
 				return item.id === id;
@@ -47,20 +50,9 @@ export class CoursesService {
 		return course;
 	}
 
-	updateCourse(id: number, updateFields: {title?: string,
-											createDate?: Date,
-											duration?: string,
-											description?: string}): Observable<Course[]> {
-		let updatedCourse: Course = this.getCourseById(id),
-			updatedIndex: number = this.getCourseIndex(id),
-			courses: Course[];
-
-		Object.assign(updatedCourse, updateFields);
-		courses = this.courses.getValue();
-		courses[updatedIndex] = updatedCourse;
-		this.courses.next(courses);
-
-		return this.courses;
+	updateCourse(id: number, course: Course): Observable<string> {
+		return this.http.post(`/courses/${id}`, course)
+			.map((res: Response) => res.json());
 	}
 
 	removeCourse(id: number): Observable<string> {
@@ -71,16 +63,14 @@ export class CoursesService {
 	getAuthors(): Observable<CourseAuthors[]> {
 		return this.http.get('/authors')
 			.flatMap((res: Response) => res.json())
-			.map((author: CourseAuthors) => {
-				author.checked = false;
-				author.fullName = `${author.firstName} ${author.lastName}`;
-				return author;
+			.map((author: any) => {
+				return this.transformAuthor(author, false);
 			})
 			.toArray();
 	}
 
 	private getCourseIndex(id: number): number {
-		let course: Course = this.getCourseById(id);
+		let course: Course = this.getCourseByIdFromCollection(id);
 
 		return this.courses.getValue().indexOf(course);
 	}
@@ -88,20 +78,33 @@ export class CoursesService {
 	private requestCourses(params: URLSearchParams): Observable<Course[]> {
 		return this.http.get('/courses', { params: params})
 			.flatMap((res: Response) => res.json())
-			.map((course: any) => {
-				return new CourseItem(
-						course.name,
-						new Date(course.date),
-						course.length,
-						course.description,
-						course.isTopRated,
-						course.authors,
-						course.id
-				);
-			})
+			.map(this.transformCourse)
 			.toArray()
 			.do((courses: Course[]) => {
 				this.courses.next(courses);
 			});
+	}
+
+	private transformAuthor: (author: any, cheked: boolean) => CourseAuthors =
+							 (author: any, cheked: boolean) => {
+		author.checked = cheked;
+		author.fullName = `${author.firstName} ${author.lastName}`;
+		return author;
+	}
+
+	private transformCourse: (course: any) => Course = (course: any) => {
+		let authors = course.authors.map((author: CourseAuthors) => {
+			return this.transformAuthor(author, true);
+		});
+
+		return new CourseItem(
+				course.name,
+				new Date(course.date),
+				course.length,
+				course.description,
+				course.isTopRated,
+				authors,
+				course.id
+		);
 	}
 }

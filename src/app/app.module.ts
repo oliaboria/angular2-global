@@ -25,9 +25,11 @@ import { LoaderBlockComponent } from './common/components/loader-block';
 import { CoursesModule } from './pages/courses';
 import { CourseDetailsModule } from './pages/course-details';
 import { LoginModule } from './pages/login';
+import { NotFoundModule } from './pages/not-found';
 
 // Services
 import { AuthService } from './common/services';
+import { BreadcrumbService } from './common/services';
 import { CoursesService } from './common/services';
 import { LoaderBlockService } from './common/components/loader-block';
 import { HttpClient } from './common/services';
@@ -35,6 +37,7 @@ import { HttpClient } from './common/services';
 // Application wide providers
 const APP_PROVIDERS = [
 	AuthService,
+	BreadcrumbService,
 	CoursesService,
 	LoaderBlockService,
 	{
@@ -66,7 +69,8 @@ const APP_PROVIDERS = [
 		FooterModule,
 		CoursesModule,
 		CourseDetailsModule,
-		LoginModule
+		LoginModule,
+		NotFoundModule
 	],
 	providers: [ // expose our Services and Providers into Angular's dependency injection
 		ENV_PROVIDERS,

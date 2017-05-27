@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MaterialModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -9,6 +9,8 @@ import { AuthorsInputComponent } from './authors-input/authors-input.component';
 import { CourseDetailsComponent } from './course-details.component';
 import { DurationInputComponent } from './duration-input/duration-input.component';
 import { DateInputComponent } from './date-input/date-input.component';
+
+import { AuthGuard, CourseDetailsGuard } from '../../common/guards';
 
 import { PipeModule } from '../../common/pipes';
 
@@ -27,7 +29,11 @@ import { PipeModule } from '../../common/pipes';
 		MaterialModule,
 		PipeModule
 	],
-	providers: []
+	providers: [
+		AuthGuard,
+		CourseDetailsGuard,
+		DatePipe
+	]
 })
 export class CourseDetailsModule {
 	constructor() {}

@@ -5,6 +5,7 @@
 				   placeholder="Duration"
 				   type="text"
 				   name="duration"
+				   [ngModel]="courseDuration"
 				   (keyup)="onChange($event)"
 		   		   (blur)="onChange($event)">
 			<md-hint *ngIf="!control.pristine && control.invalid"
